@@ -90,12 +90,17 @@
 
     <header>
         <h1>Sistema de Gestión de Pedidos</h1>
-        <p>Administración de clientes</p>
+        <p>Administración de clientes y productos</p>
     </header>
 
     <main>
 
+        <!-- ========================= -->
+        <!-- MÓDULO DE CLIENTES -->
+        <!-- ========================= -->
+
         <section class="card">
+
             <h2>Registrar cliente</h2>
 
             <form id="clienteForm">
@@ -126,6 +131,7 @@
                 </button>
 
             </form>
+
         </section>
 
         <section class="card">
@@ -150,22 +156,99 @@
 
         </section>
 
+
+        <!-- ========================= -->
+        <!-- MÓDULO DE PRODUCTOS -->
+        <!-- ========================= -->
+
+        <section class="card">
+
+            <h2>Registrar producto</h2>
+
+            <form id="productoForm">
+
+                <input
+                    type="text"
+                    id="codigoProducto"
+                    placeholder="Código del producto"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="nombreProducto"
+                    placeholder="Nombre del producto"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="precioProducto"
+                    placeholder="Precio"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+                <button type="submit">
+                    Registrar producto
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Lista de productos</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+
+                <tbody id="productosTabla">
+                </tbody>
+
+            </table>
+
+        </section>
+
     </main>
+
 
     <script>
 
+        // =========================
+        // MÓDULO DE CLIENTES
+        // =========================
+
         const clientes = [];
 
-        const formulario = document.getElementById("clienteForm");
-        const tabla = document.getElementById("clientesTabla");
+        const formularioCliente =
+            document.getElementById("clienteForm");
 
-        formulario.addEventListener("submit", function(event) {
+        const tablaClientes =
+            document.getElementById("clientesTabla");
+
+        formularioCliente.addEventListener("submit", function(event) {
 
             event.preventDefault();
 
-            const nombre = document.getElementById("nombre").value;
-            const documento = document.getElementById("documento").value;
-            const correo = document.getElementById("correo").value;
+            const nombre =
+                document.getElementById("nombre").value;
+
+            const documento =
+                document.getElementById("documento").value;
+
+            const correo =
+                document.getElementById("correo").value;
 
             const cliente = {
                 nombre: nombre,
@@ -177,16 +260,19 @@
 
             mostrarClientes();
 
-            formulario.reset();
+            formularioCliente.reset();
+
         });
+
 
         function mostrarClientes() {
 
-            tabla.innerHTML = "";
+            tablaClientes.innerHTML = "";
 
             clientes.forEach(function(cliente, index) {
 
-                const fila = document.createElement("tr");
+                const fila =
+                    document.createElement("tr");
 
                 fila.innerHTML = `
                     <td>${index + 1}</td>
@@ -195,9 +281,74 @@
                     <td>${cliente.correo}</td>
                 `;
 
-                tabla.appendChild(fila);
+                tablaClientes.appendChild(fila);
 
             });
+
+        }
+
+
+        // =========================
+        // MÓDULO DE PRODUCTOS
+        // =========================
+
+        const productos = [];
+
+        const formularioProducto =
+            document.getElementById("productoForm");
+
+        const tablaProductos =
+            document.getElementById("productosTabla");
+
+
+        formularioProducto.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const codigo =
+                document.getElementById("codigoProducto").value;
+
+            const nombre =
+                document.getElementById("nombreProducto").value;
+
+            const precio =
+                document.getElementById("precioProducto").value;
+
+            const producto = {
+                codigo: codigo,
+                nombre: nombre,
+                precio: parseFloat(precio)
+            };
+
+            productos.push(producto);
+
+            mostrarProductos();
+
+            formularioProducto.reset();
+
+        });
+
+
+        function mostrarProductos() {
+
+            tablaProductos.innerHTML = "";
+
+            productos.forEach(function(producto, index) {
+
+                const fila =
+                    document.createElement("tr");
+
+                fila.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${producto.codigo}</td>
+                    <td>${producto.nombre}</td>
+                    <td>S/ ${producto.precio.toFixed(2)}</td>
+                `;
+
+                tablaProductos.appendChild(fila);
+
+            });
+
         }
 
     </script>
