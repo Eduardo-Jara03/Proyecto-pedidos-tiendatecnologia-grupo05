@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Pedidos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            gap: 12px;
+        }
+
+        input,
+        button {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Sistema de Gestión de Pedidos</h1>
+        <p>Administración de clientes</p>
+    </header>
+
+    <main>
+
+        <section class="card">
+            <h2>Registrar cliente</h2>
+
+            <form id="clienteForm">
+
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre completo"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="documento"
+                    placeholder="Documento"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="correo"
+                    placeholder="Correo electrónico"
+                    required
+                >
+
+                <button type="submit">
+                    Registrar cliente
+                </button>
+
+            </form>
+        </section>
+
+        <section class="card">
+
+            <h2>Lista de clientes</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Correo</th>
+                    </tr>
+                </thead>
+
+                <tbody id="clientesTabla">
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        const clientes = [];
+
+        const formulario = document.getElementById("clienteForm");
+        const tabla = document.getElementById("clientesTabla");
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const documento = document.getElementById("documento").value;
+            const correo = document.getElementById("correo").value;
+
+            const cliente = {
+                nombre: nombre,
+                documento: documento,
+                correo: correo
+            };
+
+            clientes.push(cliente);
+
+            mostrarClientes();
+
+            formulario.reset();
+        });
+
+        function mostrarClientes() {
+
+            tabla.innerHTML = "";
+
+            clientes.forEach(function(cliente, index) {
+
+                const fila = document.createElement("tr");
+
+                fila.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${cliente.nombre}</td>
+                    <td>${cliente.documento}</td>
+                    <td>${cliente.correo}</td>
+                `;
+
+                tabla.appendChild(fila);
+
+            });
+        }
+
+    </script>
+
+</body>
+</html>
