@@ -113,6 +113,11 @@
             gap: 12px;
         }
 
+        .codigo-pedido {
+            background: #f1f5f9;
+            font-weight: bold;
+        }
+
         @media (max-width: 700px) {
 
             main {
@@ -184,6 +189,7 @@
 
         </section>
 
+
         <section class="card">
 
             <h2>Lista de clientes</h2>
@@ -248,6 +254,7 @@
 
         </section>
 
+
         <section class="card">
 
             <h2>Lista de productos</h2>
@@ -281,17 +288,31 @@
 
             <form id="pedidoForm">
 
+                <input
+                    type="text"
+                    id="codigoPedido"
+                    class="codigo-pedido"
+                    placeholder="Código del pedido"
+                    readonly
+                >
+
                 <select id="clientePedido" required>
+
                     <option value="">
                         Seleccione un cliente
                     </option>
+
                 </select>
 
+
                 <select id="productoPedido" required>
+
                     <option value="">
                         Seleccione un producto
                     </option>
+
                 </select>
+
 
                 <input
                     type="number"
@@ -301,6 +322,7 @@
                     step="1"
                     required
                 >
+
 
                 <div class="resumen-pedido">
 
@@ -320,11 +342,13 @@
 
                 </div>
 
+
                 <button type="submit">
                     Registrar pedido
                 </button>
 
             </form>
+
 
             <div
                 id="mensajePedido"
@@ -345,8 +369,9 @@
             <table>
 
                 <thead>
+
                     <tr>
-                        <th>#</th>
+                        <th>N° Pedido</th>
                         <th>Cliente</th>
                         <th>Producto</th>
                         <th>Cantidad</th>
@@ -354,7 +379,9 @@
                         <th>Total</th>
                         <th>Acción</th>
                     </tr>
+
                 </thead>
+
 
                 <tbody id="pedidosTabla">
                 </tbody>
@@ -375,11 +402,19 @@
         let clientes =
             JSON.parse(localStorage.getItem("clientes")) || [];
 
+
         let productos =
             JSON.parse(localStorage.getItem("productos")) || [];
 
+
         let pedidos =
             JSON.parse(localStorage.getItem("pedidos")) || [];
+
+
+        let contadorPedidos =
+            parseInt(
+                localStorage.getItem("contadorPedidos")
+            ) || 1;
 
 
         // ==================================================
@@ -389,12 +424,14 @@
         const formularioCliente =
             document.getElementById("clienteForm");
 
+
         const tablaClientes =
             document.getElementById("clientesTabla");
 
 
         const formularioProducto =
             document.getElementById("productoForm");
+
 
         const tablaProductos =
             document.getElementById("productosTabla");
@@ -403,23 +440,34 @@
         const formularioPedido =
             document.getElementById("pedidoForm");
 
+
+        const codigoPedido =
+            document.getElementById("codigoPedido");
+
+
         const selectorCliente =
             document.getElementById("clientePedido");
+
 
         const selectorProducto =
             document.getElementById("productoPedido");
 
+
         const cantidadPedido =
             document.getElementById("cantidadPedido");
+
 
         const precioPedido =
             document.getElementById("precioPedido");
 
+
         const totalPedido =
             document.getElementById("totalPedido");
 
+
         const tablaPedidos =
             document.getElementById("pedidosTabla");
+
 
         const mensajePedido =
             document.getElementById("mensajePedido");
@@ -435,36 +483,50 @@
 
                 event.preventDefault();
 
+
                 const nombre =
-                    document.getElementById("nombre")
+                    document
+                        .getElementById("nombre")
                         .value
                         .trim();
+
 
                 const documento =
-                    document.getElementById("documento")
+                    document
+                        .getElementById("documento")
                         .value
                         .trim();
 
+
                 const correo =
-                    document.getElementById("correo")
+                    document
+                        .getElementById("correo")
                         .value
                         .trim();
 
 
                 const cliente = {
+
                     nombre: nombre,
+
                     documento: documento,
+
                     correo: correo
+
                 };
 
 
                 clientes.push(cliente);
 
+
                 guardarClientes();
+
 
                 mostrarClientes();
 
+
                 actualizarClientesPedido();
+
 
                 formularioCliente.reset();
 
@@ -486,11 +548,13 @@
 
             tablaClientes.innerHTML = "";
 
+
             clientes.forEach(
                 function(cliente, index) {
 
                     const fila =
                         document.createElement("tr");
+
 
                     fila.innerHTML = `
                         <td>${index + 1}</td>
@@ -498,6 +562,7 @@
                         <td>${cliente.documento}</td>
                         <td>${cliente.correo}</td>
                     `;
+
 
                     tablaClientes.appendChild(fila);
 
@@ -517,17 +582,20 @@
 
                 event.preventDefault();
 
+
                 const codigo =
                     document
                         .getElementById("codigoProducto")
                         .value
                         .trim();
 
+
                 const nombre =
                     document
                         .getElementById("nombreProducto")
                         .value
                         .trim();
+
 
                 const precio =
                     parseFloat(
@@ -550,11 +618,15 @@
 
                 productos.push(producto);
 
+
                 guardarProductos();
+
 
                 mostrarProductos();
 
+
                 actualizarProductosPedido();
+
 
                 formularioProducto.reset();
 
@@ -576,11 +648,13 @@
 
             tablaProductos.innerHTML = "";
 
+
             productos.forEach(
                 function(producto, index) {
 
                     const fila =
                         document.createElement("tr");
+
 
                     fila.innerHTML = `
                         <td>${index + 1}</td>
@@ -588,6 +662,7 @@
                         <td>${producto.nombre}</td>
                         <td>S/ ${producto.precio.toFixed(2)}</td>
                     `;
+
 
                     tablaProductos.appendChild(fila);
 
@@ -598,7 +673,28 @@
 
 
         // ==================================================
-        // PEDIDOS
+        // GENERAR CÓDIGO DE PEDIDO
+        // ==================================================
+
+        function generarCodigoPedido() {
+
+            return "PED-" +
+                String(contadorPedidos)
+                    .padStart(3, "0");
+
+        }
+
+
+        function actualizarCodigoPedido() {
+
+            codigoPedido.value =
+                generarCodigoPedido();
+
+        }
+
+
+        // ==================================================
+        // ACTUALIZAR CLIENTES DEL PEDIDO
         // ==================================================
 
         function actualizarClientesPedido() {
@@ -613,12 +709,15 @@
                     const opcion =
                         document.createElement("option");
 
+
                     opcion.value = index;
+
 
                     opcion.textContent =
                         cliente.nombre +
                         " - " +
                         cliente.documento;
+
 
                     selectorCliente.appendChild(opcion);
 
@@ -627,6 +726,10 @@
 
         }
 
+
+        // ==================================================
+        // ACTUALIZAR PRODUCTOS DEL PEDIDO
+        // ==================================================
 
         function actualizarProductosPedido() {
 
@@ -640,12 +743,15 @@
                     const opcion =
                         document.createElement("option");
 
+
                     opcion.value = index;
+
 
                     opcion.textContent =
                         producto.nombre +
                         " - S/ " +
                         producto.precio.toFixed(2);
+
 
                     selectorProducto.appendChild(opcion);
 
@@ -656,7 +762,7 @@
 
 
         // ==================================================
-        // PRECIO DEL PRODUCTO
+        // SELECCIÓN DE PRODUCTO
         // ==================================================
 
         selectorProducto.addEventListener(
@@ -716,8 +822,11 @@
             const indice =
                 selectorProducto.value;
 
+
             const cantidad =
-                parseInt(cantidadPedido.value);
+                parseInt(
+                    cantidadPedido.value
+                );
 
 
             if (
@@ -784,11 +893,15 @@
                 const indiceCliente =
                     selectorCliente.value;
 
+
                 const indiceProducto =
                     selectorProducto.value;
 
+
                 const cantidad =
-                    parseInt(cantidadPedido.value);
+                    parseInt(
+                        cantidadPedido.value
+                    );
 
 
                 if (
@@ -810,6 +923,7 @@
                 const cliente =
                     clientes[indiceCliente];
 
+
                 const producto =
                     productos[indiceProducto];
 
@@ -820,31 +934,55 @@
 
                 const pedido = {
 
-                    cliente: cliente.nombre,
+                    codigo:
+                        generarCodigoPedido(),
 
-                    producto: producto.nombre,
+                    cliente:
+                        cliente.nombre,
 
-                    cantidad: cantidad,
+                    producto:
+                        producto.nombre,
 
-                    precio: producto.precio,
+                    cantidad:
+                        cantidad,
 
-                    total: total
+                    precio:
+                        producto.precio,
+
+                    total:
+                        total
 
                 };
 
 
                 pedidos.push(pedido);
 
+
+                contadorPedidos++;
+
+
                 guardarPedidos();
+
+
+                localStorage.setItem(
+                    "contadorPedidos",
+                    contadorPedidos
+                );
+
 
                 mostrarPedidos();
 
 
                 formularioPedido.reset();
 
+
                 precioPedido.value = "";
 
                 totalPedido.value = "";
+
+
+                actualizarCodigoPedido();
+
 
                 ocultarMensaje();
 
@@ -874,14 +1012,16 @@
 
             tablaPedidos.innerHTML = "";
 
+
             pedidos.forEach(
                 function(pedido, index) {
 
                     const fila =
                         document.createElement("tr");
 
+
                     fila.innerHTML = `
-                        <td>${index + 1}</td>
+                        <td>${pedido.codigo}</td>
                         <td>${pedido.cliente}</td>
                         <td>${pedido.producto}</td>
                         <td>${pedido.cantidad}</td>
@@ -896,6 +1036,7 @@
                             </button>
                         </td>
                     `;
+
 
                     tablaPedidos.appendChild(fila);
 
@@ -913,7 +1054,9 @@
 
             pedidos.splice(index, 1);
 
+
             guardarPedidos();
+
 
             mostrarPedidos();
 
@@ -926,18 +1069,24 @@
 
         function mostrarMensaje(texto) {
 
-            mensajePedido.textContent = texto;
+            mensajePedido.textContent =
+                texto;
 
-            mensajePedido.style.display = "block";
+
+            mensajePedido.style.display =
+                "block";
 
         }
 
 
         function ocultarMensaje() {
 
-            mensajePedido.textContent = "";
+            mensajePedido.textContent =
+                "";
 
-            mensajePedido.style.display = "none";
+
+            mensajePedido.style.display =
+                "none";
 
         }
 
@@ -955,6 +1104,8 @@
         actualizarClientesPedido();
 
         actualizarProductosPedido();
+
+        actualizarCodigoPedido();
 
     </script>
 
