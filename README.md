@@ -47,3 +47,9 @@ El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de
 Git será utilizado para controlar las versiones del proyecto, registrar los cambios realizados por cada integrante y facilitar el trabajo colaborativo.
 
 GitHub será utilizado como repositorio remoto para almacenar el código fuente y permitir la integración de los cambios realizados por los integrantes del equipo.
+
+Version integrada desde la rama develop.
+
+Version del módulo de pedidos.
+
+
