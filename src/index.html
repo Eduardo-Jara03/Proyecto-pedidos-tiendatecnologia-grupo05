@@ -118,6 +118,19 @@
             font-weight: bold;
         }
 
+        .busqueda-pedidos {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .mensaje-busqueda {
+            margin-top: 10px;
+            color: #92400e;
+            display: none;
+        }
+
         @media (max-width: 700px) {
 
             main {
@@ -129,6 +142,10 @@
             }
 
             .resumen-pedido {
+                grid-template-columns: 1fr;
+            }
+
+            .busqueda-pedidos {
                 grid-template-columns: 1fr;
             }
 
@@ -359,12 +376,39 @@
 
 
         <!-- ========================= -->
-        <!-- LISTA DE PEDIDOS -->
+        <!-- LISTA Y CONSULTA DE PEDIDOS -->
         <!-- ========================= -->
 
         <section class="card">
 
             <h2>Lista de pedidos</h2>
+
+            <div class="busqueda-pedidos">
+
+                <input
+                    type="text"
+                    id="buscarPedido"
+                    placeholder="Buscar por código o cliente"
+                >
+
+                <button
+                    type="button"
+                    id="btnBuscarPedido">
+                    Buscar
+                </button>
+
+                <button
+                    type="button"
+                    id="btnMostrarTodos">
+                    Mostrar todos
+                </button>
+
+            </div>
+
+            <div
+                id="mensajeBusqueda"
+                class="mensaje-busqueda">
+            </div>
 
             <table>
 
@@ -471,6 +515,22 @@
 
         const mensajePedido =
             document.getElementById("mensajePedido");
+
+
+        const buscarPedido =
+            document.getElementById("buscarPedido");
+
+
+        const btnBuscarPedido =
+            document.getElementById("btnBuscarPedido");
+
+
+        const btnMostrarTodos =
+            document.getElementById("btnMostrarTodos");
+
+
+        const mensajeBusqueda =
+            document.getElementById("mensajeBusqueda");
 
 
         // ==================================================
@@ -1008,12 +1068,14 @@
         // MOSTRAR PEDIDOS
         // ==================================================
 
-        function mostrarPedidos() {
+        function mostrarPedidos(lista = pedidos) {
 
             tablaPedidos.innerHTML = "";
 
+            ocultarMensajeBusqueda();
 
-            pedidos.forEach(
+
+            lista.forEach(
                 function(pedido, index) {
 
                     const fila =
@@ -1031,7 +1093,7 @@
                             <button
                                 type="button"
                                 class="btn-eliminar"
-                                onclick="eliminarPedido(${index})">
+                                onclick="eliminarPedido(${pedidos.indexOf(pedido)})">
                                 Eliminar
                             </button>
                         </td>
@@ -1044,6 +1106,97 @@
             );
 
         }
+
+
+        // ==================================================
+        // BUSCAR PEDIDOS
+        // ==================================================
+
+        function buscarPedidos() {
+
+            const texto =
+                buscarPedido.value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (texto === "") {
+
+                mostrarPedidos();
+
+                return;
+
+            }
+
+
+            const resultados =
+                pedidos.filter(
+                    function(pedido) {
+
+                        return (
+                            pedido.codigo
+                                .toLowerCase()
+                                .includes(texto)
+                            ||
+                            pedido.cliente
+                                .toLowerCase()
+                                .includes(texto)
+                        );
+
+                    }
+                );
+
+
+            mostrarPedidos(resultados);
+
+
+            if (resultados.length === 0) {
+
+                mostrarMensajeBusqueda(
+                    "No se encontraron pedidos con ese criterio."
+                );
+
+            }
+
+        }
+
+
+        btnBuscarPedido.addEventListener(
+            "click",
+            function() {
+
+                buscarPedidos();
+
+            }
+        );
+
+
+        buscarPedido.addEventListener(
+            "keypress",
+            function(event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    buscarPedidos();
+
+                }
+
+            }
+        );
+
+
+        btnMostrarTodos.addEventListener(
+            "click",
+            function() {
+
+                buscarPedido.value = "";
+
+                mostrarPedidos();
+
+            }
+        );
 
 
         // ==================================================
@@ -1086,6 +1239,30 @@
 
 
             mensajePedido.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeBusqueda(texto) {
+
+            mensajeBusqueda.textContent =
+                texto;
+
+
+            mensajeBusqueda.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeBusqueda() {
+
+            mensajeBusqueda.textContent =
+                "";
+
+
+            mensajeBusqueda.style.display =
                 "none";
 
         }
