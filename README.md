@@ -10,6 +10,8 @@
 
 ## Descripción del proyecto
 
+Esta versión incluye el módulo de gestión de pedidos.
+
 El proyecto consiste en desarrollar una aplicación para registrar y consultar los pedidos de los clientes de una tienda de tecnología.
 
 El sistema permitirá organizar la información relacionada con clientes, productos y pedidos, facilitando la gestión de las operaciones principales de la tienda.
