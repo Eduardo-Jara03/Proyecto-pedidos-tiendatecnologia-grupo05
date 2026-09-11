@@ -52,4 +52,6 @@ Version integrada desde la rama develop.
 
 Version del módulo de pedidos.
 
+Cambio realizado directamente en develop para prueba de conflicto.
+
 
