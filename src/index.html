@@ -1,161 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Gestión de Pedidos</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
-        }
-
-        header {
-            background: #1f2937;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        main {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: grid;
-            gap: 12px;
-        }
-
-        input,
-        select,
-        button {
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-        }
-
-        button {
-            background: #2563eb;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #1d4ed8;
-        }
-
-        input[readonly] {
-            background: #f1f5f9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-
-        th {
-            background: #f1f5f9;
-        }
-
-        .btn-eliminar {
-            background: #dc2626;
-            padding: 8px 12px;
-        }
-
-        .btn-eliminar:hover {
-            background: #b91c1c;
-        }
-
-        .mensaje {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            background: #fef3c7;
-            color: #92400e;
-            display: none;
-        }
-
-        .resumen-pedido {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .codigo-pedido {
-            background: #f1f5f9;
-            font-weight: bold;
-        }
-
-        .busqueda-pedidos {
-            display: grid;
-            grid-template-columns: 1fr auto auto;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .mensaje-busqueda {
-            margin-top: 10px;
-            color: #92400e;
-            display: none;
-        }
-
-        @media (max-width: 700px) {
-
-            main {
-                padding: 10px;
-            }
-
-            .card {
-                padding: 18px;
-            }
-
-            .resumen-pedido {
-                grid-template-columns: 1fr;
-            }
-
-            .busqueda-pedidos {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/estilos.css">
 </head>
 
 <body>
@@ -311,7 +162,7 @@
 
         <section class="card">
 
-            <h2>Registrar pedido</h2>
+            <h2 id="tituloPedido">Registrar pedido</h2>
 
             <form id="pedidoForm">
 
@@ -331,7 +182,6 @@
 
                 </select>
 
-
                 <select id="productoPedido" required>
 
                     <option value="">
@@ -339,7 +189,6 @@
                     </option>
 
                 </select>
-
 
                 <input
                     type="number"
@@ -349,7 +198,6 @@
                     step="1"
                     required
                 >
-
 
                 <div class="resumen-pedido">
 
@@ -369,13 +217,21 @@
 
                 </div>
 
-
-                <button type="submit">
+                <button
+                    type="submit"
+                    id="btnPedido">
                     Registrar pedido
                 </button>
 
-            </form>
+                <button
+                    type="button"
+                    id="btnCancelarEdicion"
+                    class="btn-eliminar"
+                    style="display: none;">
+                    Cancelar edición
+                </button>
 
+            </form>
 
             <div
                 id="mensajePedido"
@@ -403,7 +259,7 @@
 
                 <button
                     type="button"
-                    id="btnBuscarPedido">
+                    id="btnBuscar">
                     Buscar
                 </button>
 
@@ -436,7 +292,6 @@
 
                 </thead>
 
-
                 <tbody id="pedidosTabla">
                 </tbody>
 
@@ -456,19 +311,18 @@
         let clientes =
             JSON.parse(localStorage.getItem("clientes")) || [];
 
-
         let productos =
             JSON.parse(localStorage.getItem("productos")) || [];
 
-
         let pedidos =
             JSON.parse(localStorage.getItem("pedidos")) || [];
-
 
         let contadorPedidos =
             parseInt(
                 localStorage.getItem("contadorPedidos")
             ) || 1;
+
+        let pedidoEditando = null;
 
 
         // ==================================================
@@ -478,77 +332,68 @@
         const formularioCliente =
             document.getElementById("clienteForm");
 
-
         const tablaClientes =
             document.getElementById("clientesTabla");
-
 
         const formularioProducto =
             document.getElementById("productoForm");
 
-
         const tablaProductos =
             document.getElementById("productosTabla");
-
 
         const formularioPedido =
             document.getElementById("pedidoForm");
 
-
         const codigoPedido =
             document.getElementById("codigoPedido");
-
 
         const selectorCliente =
             document.getElementById("clientePedido");
 
-
         const selectorProducto =
             document.getElementById("productoPedido");
-
 
         const cantidadPedido =
             document.getElementById("cantidadPedido");
 
-
         const precioPedido =
             document.getElementById("precioPedido");
-
 
         const totalPedido =
             document.getElementById("totalPedido");
 
-
         const tablaPedidos =
             document.getElementById("pedidosTabla");
-
 
         const mensajePedido =
             document.getElementById("mensajePedido");
 
-
         const buscarPedido =
             document.getElementById("buscarPedido");
 
-
-        const btnBuscarPedido =
-            document.getElementById("btnBuscarPedido");
-
+        const btnBuscar =
+            document.getElementById("btnBuscar");
 
         const btnMostrarTodos =
             document.getElementById("btnMostrarTodos");
 
-
         const mensajeBusqueda =
             document.getElementById("mensajeBusqueda");
-
 
         const mensajeCliente =
             document.getElementById("mensajeCliente");
 
-
         const mensajeProducto =
             document.getElementById("mensajeProducto");
+
+        const tituloPedido =
+            document.getElementById("tituloPedido");
+
+        const btnPedido =
+            document.getElementById("btnPedido");
+
+        const btnCancelarEdicion =
+            document.getElementById("btnCancelarEdicion");
 
 
         // ==================================================
@@ -561,20 +406,17 @@
 
                 event.preventDefault();
 
-
                 const nombre =
                     document
                         .getElementById("nombre")
                         .value
                         .trim();
 
-
                 const documento =
                     document
                         .getElementById("documento")
                         .value
                         .trim();
-
 
                 const correo =
                     document
@@ -600,16 +442,13 @@
                     );
 
                     return;
-
                 }
 
 
                 const cliente = {
 
                     nombre: nombre,
-
                     documento: documento,
-
                     correo: correo
 
                 };
@@ -617,18 +456,13 @@
 
                 clientes.push(cliente);
 
-
                 guardarClientes();
-
 
                 mostrarClientes();
 
-
                 actualizarClientesPedido();
 
-
                 formularioCliente.reset();
-
 
                 ocultarMensajeCliente();
 
@@ -650,13 +484,11 @@
 
             tablaClientes.innerHTML = "";
 
-
             clientes.forEach(
                 function(cliente, index) {
 
                     const fila =
                         document.createElement("tr");
-
 
                     fila.innerHTML = `
                         <td>${index + 1}</td>
@@ -664,7 +496,6 @@
                         <td>${cliente.documento}</td>
                         <td>${cliente.correo}</td>
                     `;
-
 
                     tablaClientes.appendChild(fila);
 
@@ -684,20 +515,17 @@
 
                 event.preventDefault();
 
-
                 const codigo =
                     document
                         .getElementById("codigoProducto")
                         .value
                         .trim();
 
-
                 const nombre =
                     document
                         .getElementById("nombreProducto")
                         .value
                         .trim();
-
 
                 const precio =
                     parseFloat(
@@ -725,7 +553,6 @@
                     );
 
                     return;
-
                 }
 
 
@@ -736,16 +563,13 @@
                     );
 
                     return;
-
                 }
 
 
                 const producto = {
 
                     codigo: codigo,
-
                     nombre: nombre,
-
                     precio: precio
 
                 };
@@ -753,18 +577,13 @@
 
                 productos.push(producto);
 
-
                 guardarProductos();
-
 
                 mostrarProductos();
 
-
                 actualizarProductosPedido();
 
-
                 formularioProducto.reset();
-
 
                 ocultarMensajeProducto();
 
@@ -786,13 +605,11 @@
 
             tablaProductos.innerHTML = "";
 
-
             productos.forEach(
                 function(producto, index) {
 
                     const fila =
                         document.createElement("tr");
-
 
                     fila.innerHTML = `
                         <td>${index + 1}</td>
@@ -800,7 +617,6 @@
                         <td>${producto.nombre}</td>
                         <td>S/ ${producto.precio.toFixed(2)}</td>
                     `;
-
 
                     tablaProductos.appendChild(fila);
 
@@ -840,22 +656,18 @@
             selectorCliente.innerHTML =
                 '<option value="">Seleccione un cliente</option>';
 
-
             clientes.forEach(
                 function(cliente, index) {
 
                     const opcion =
                         document.createElement("option");
 
-
                     opcion.value = index;
-
 
                     opcion.textContent =
                         cliente.nombre +
                         " - " +
                         cliente.documento;
-
 
                     selectorCliente.appendChild(opcion);
 
@@ -874,22 +686,18 @@
             selectorProducto.innerHTML =
                 '<option value="">Seleccione un producto</option>';
 
-
             productos.forEach(
                 function(producto, index) {
 
                     const opcion =
                         document.createElement("option");
 
-
                     opcion.value = index;
-
 
                     opcion.textContent =
                         producto.nombre +
                         " - S/ " +
                         producto.precio.toFixed(2);
-
 
                     selectorProducto.appendChild(opcion);
 
@@ -910,26 +718,20 @@
                 const indice =
                     selectorProducto.value;
 
-
                 if (indice === "") {
 
                     precioPedido.value = "";
-
                     totalPedido.value = "";
 
                     return;
-
                 }
-
 
                 const producto =
                     productos[indice];
 
-
                 precioPedido.value =
                     "S/ " +
                     producto.precio.toFixed(2);
-
 
                 calcularTotal();
 
@@ -960,7 +762,6 @@
             const indice =
                 selectorProducto.value;
 
-
             const cantidad =
                 parseInt(
                     cantidadPedido.value
@@ -976,17 +777,14 @@
                 totalPedido.value = "";
 
                 return;
-
             }
 
 
             const producto =
                 productos[indice];
 
-
             const total =
                 producto.precio * cantidad;
-
 
             totalPedido.value =
                 "S/ " +
@@ -996,7 +794,7 @@
 
 
         // ==================================================
-        // REGISTRAR PEDIDO
+        // REGISTRAR / ACTUALIZAR PEDIDO
         // ==================================================
 
         formularioPedido.addEventListener(
@@ -1013,7 +811,6 @@
                     );
 
                     return;
-
                 }
 
 
@@ -1024,17 +821,14 @@
                     );
 
                     return;
-
                 }
 
 
                 const indiceCliente =
                     selectorCliente.value;
 
-
                 const indiceProducto =
                     selectorProducto.value;
-
 
                 const cantidad =
                     parseInt(
@@ -1054,21 +848,65 @@
                     );
 
                     return;
-
                 }
 
 
                 const cliente =
                     clientes[indiceCliente];
 
-
                 const producto =
                     productos[indiceProducto];
-
 
                 const total =
                     producto.precio * cantidad;
 
+
+                // ==========================================
+                // ACTUALIZAR PEDIDO
+                // ==========================================
+
+                if (pedidoEditando !== null) {
+
+                    pedidos[pedidoEditando] = {
+
+                        codigo:
+                            pedidos[pedidoEditando].codigo,
+
+                        cliente:
+                            cliente.nombre,
+
+                        producto:
+                            producto.nombre,
+
+                        cantidad:
+                            cantidad,
+
+                        precio:
+                            producto.precio,
+
+                        total:
+                            total
+
+                    };
+
+
+                    guardarPedidos();
+
+                    mostrarPedidos();
+
+                    cancelarEdicion();
+
+                    mostrarMensajeExito(
+                        "Pedido actualizado correctamente."
+                    );
+
+                    return;
+                }
+
+
+                // ==========================================
+                // REGISTRAR NUEVO PEDIDO
+                // ==========================================
 
                 const pedido = {
 
@@ -1095,7 +933,6 @@
 
                 pedidos.push(pedido);
 
-
                 contadorPedidos++;
 
 
@@ -1110,17 +947,13 @@
 
                 mostrarPedidos();
 
-
                 formularioPedido.reset();
-
 
                 precioPedido.value = "";
 
                 totalPedido.value = "";
 
-
                 actualizarCodigoPedido();
-
 
                 ocultarMensaje();
 
@@ -1156,6 +989,9 @@
             lista.forEach(
                 function(pedido) {
 
+                    const indiceReal =
+                        pedidos.indexOf(pedido);
+
                     const fila =
                         document.createElement("tr");
 
@@ -1170,8 +1006,15 @@
                         <td>
                             <button
                                 type="button"
+                                class="btn-editar"
+                                onclick="editarPedido(${indiceReal})">
+                                Editar
+                            </button>
+
+                            <button
+                                type="button"
                                 class="btn-eliminar"
-                                onclick="eliminarPedido(${pedidos.indexOf(pedido)})">
+                                onclick="eliminarPedido(${indiceReal})">
                                 Eliminar
                             </button>
                         </td>
@@ -1184,6 +1027,131 @@
             );
 
         }
+
+
+        // ==================================================
+        // EDITAR PEDIDO
+        // ==================================================
+
+        function editarPedido(index) {
+
+            const pedido =
+                pedidos[index];
+
+            if (!pedido) {
+                return;
+            }
+
+
+            pedidoEditando = index;
+
+
+            tituloPedido.textContent =
+                "Editar pedido";
+
+            btnPedido.textContent =
+                "Actualizar pedido";
+
+            btnCancelarEdicion.style.display =
+                "block";
+
+
+            const indiceCliente =
+                clientes.findIndex(
+                    function(cliente) {
+
+                        return cliente.nombre ===
+                            pedido.cliente;
+
+                    }
+                );
+
+
+            const indiceProducto =
+                productos.findIndex(
+                    function(producto) {
+
+                        return producto.nombre ===
+                            pedido.producto;
+
+                    }
+                );
+
+
+            if (indiceCliente !== -1) {
+
+                selectorCliente.value =
+                    indiceCliente;
+
+            }
+
+
+            if (indiceProducto !== -1) {
+
+                selectorProducto.value =
+                    indiceProducto;
+
+                precioPedido.value =
+                    "S/ " +
+                    productos[indiceProducto]
+                        .precio
+                        .toFixed(2);
+
+            }
+
+
+            cantidadPedido.value =
+                pedido.cantidad;
+
+
+            calcularTotal();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        // ==================================================
+        // CANCELAR EDICIÓN
+        // ==================================================
+
+        function cancelarEdicion() {
+
+            pedidoEditando = null;
+
+            tituloPedido.textContent =
+                "Registrar pedido";
+
+            btnPedido.textContent =
+                "Registrar pedido";
+
+            btnCancelarEdicion.style.display =
+                "none";
+
+            formularioPedido.reset();
+
+            precioPedido.value = "";
+
+            totalPedido.value = "";
+
+            actualizarCodigoPedido();
+
+        }
+
+
+        btnCancelarEdicion.addEventListener(
+            "click",
+            function() {
+
+                cancelarEdicion();
+
+                ocultarMensaje();
+
+            }
+        );
 
 
         // ==================================================
@@ -1203,7 +1171,6 @@
                 mostrarPedidos();
 
                 return;
-
             }
 
 
@@ -1239,7 +1206,7 @@
         }
 
 
-        btnBuscarPedido.addEventListener(
+        btnBuscar.addEventListener(
             "click",
             function() {
 
@@ -1283,11 +1250,20 @@
 
         function eliminarPedido(index) {
 
+            const confirmar =
+                confirm(
+                    "¿Está seguro de eliminar este pedido?"
+                );
+
+
+            if (!confirmar) {
+                return;
+            }
+
+
             pedidos.splice(index, 1);
 
-
             guardarPedidos();
-
 
             mostrarPedidos();
 
@@ -1303,6 +1279,24 @@
             mensajePedido.textContent =
                 texto;
 
+            mensajePedido.classList.remove(
+                "mensaje-exito"
+            );
+
+            mensajePedido.style.display =
+                "block";
+
+        }
+
+
+        function mostrarMensajeExito(texto) {
+
+            mensajePedido.textContent =
+                texto;
+
+            mensajePedido.classList.add(
+                "mensaje-exito"
+            );
 
             mensajePedido.style.display =
                 "block";
@@ -1315,6 +1309,9 @@
             mensajePedido.textContent =
                 "";
 
+            mensajePedido.classList.remove(
+                "mensaje-exito"
+            );
 
             mensajePedido.style.display =
                 "none";
@@ -1327,7 +1324,6 @@
             mensajeCliente.textContent =
                 texto;
 
-
             mensajeCliente.style.display =
                 "block";
 
@@ -1338,7 +1334,6 @@
 
             mensajeCliente.textContent =
                 "";
-
 
             mensajeCliente.style.display =
                 "none";
@@ -1351,7 +1346,6 @@
             mensajeProducto.textContent =
                 texto;
 
-
             mensajeProducto.style.display =
                 "block";
 
@@ -1362,7 +1356,6 @@
 
             mensajeProducto.textContent =
                 "";
-
 
             mensajeProducto.style.display =
                 "none";
@@ -1375,7 +1368,6 @@
             mensajeBusqueda.textContent =
                 texto;
 
-
             mensajeBusqueda.style.display =
                 "block";
 
@@ -1386,7 +1378,6 @@
 
             mensajeBusqueda.textContent =
                 "";
-
 
             mensajeBusqueda.style.display =
                 "none";
@@ -1413,4 +1404,5 @@
     </script>
 
 </body>
+
 </html>
