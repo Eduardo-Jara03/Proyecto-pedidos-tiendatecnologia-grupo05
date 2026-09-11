@@ -8,7 +8,7 @@
 * Rivera Hipolito, Carlos Fernando U23216154
 * Reyes Vicente, Bruno Santiago U19221035
 
-## Descripción del proyecto
+## Descripción del proyecto - Módulo de pedidos
 
 Esta versión incluye el módulo de gestión de pedidos.
 
