@@ -204,6 +204,11 @@
 
             </form>
 
+            <div
+                id="mensajeCliente"
+                class="mensaje">
+            </div>
+
         </section>
 
 
@@ -258,7 +263,7 @@
                     type="number"
                     id="precioProducto"
                     placeholder="Precio"
-                    min="0"
+                    min="0.01"
                     step="0.01"
                     required
                 >
@@ -268,6 +273,11 @@
                 </button>
 
             </form>
+
+            <div
+                id="mensajeProducto"
+                class="mensaje">
+            </div>
 
         </section>
 
@@ -533,6 +543,14 @@
             document.getElementById("mensajeBusqueda");
 
 
+        const mensajeCliente =
+            document.getElementById("mensajeCliente");
+
+
+        const mensajeProducto =
+            document.getElementById("mensajeProducto");
+
+
         // ==================================================
         // CLIENTES
         // ==================================================
@@ -565,6 +583,27 @@
                         .trim();
 
 
+                const documentoExiste =
+                    clientes.some(
+                        function(cliente) {
+
+                            return cliente.documento === documento;
+
+                        }
+                    );
+
+
+                if (documentoExiste) {
+
+                    mostrarMensajeCliente(
+                        "Ya existe un cliente registrado con ese documento."
+                    );
+
+                    return;
+
+                }
+
+
                 const cliente = {
 
                     nombre: nombre,
@@ -589,6 +628,9 @@
 
 
                 formularioCliente.reset();
+
+
+                ocultarMensajeCliente();
 
             }
         );
@@ -665,6 +707,39 @@
                     );
 
 
+                const codigoExiste =
+                    productos.some(
+                        function(producto) {
+
+                            return producto.codigo.toLowerCase() ===
+                                codigo.toLowerCase();
+
+                        }
+                    );
+
+
+                if (codigoExiste) {
+
+                    mostrarMensajeProducto(
+                        "Ya existe un producto registrado con ese código."
+                    );
+
+                    return;
+
+                }
+
+
+                if (isNaN(precio) || precio <= 0) {
+
+                    mostrarMensajeProducto(
+                        "El precio del producto debe ser mayor que 0."
+                    );
+
+                    return;
+
+                }
+
+
                 const producto = {
 
                     codigo: codigo,
@@ -689,6 +764,9 @@
 
 
                 formularioProducto.reset();
+
+
+                ocultarMensajeProducto();
 
             }
         );
@@ -972,7 +1050,7 @@
                 ) {
 
                     mostrarMensaje(
-                        "Complete correctamente todos los datos del pedido."
+                        "Complete correctamente todos los datos del pedido. La cantidad debe ser mayor o igual a 1."
                     );
 
                     return;
@@ -1076,7 +1154,7 @@
 
 
             lista.forEach(
-                function(pedido, index) {
+                function(pedido) {
 
                     const fila =
                         document.createElement("tr");
@@ -1239,6 +1317,54 @@
 
 
             mensajePedido.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeCliente(texto) {
+
+            mensajeCliente.textContent =
+                texto;
+
+
+            mensajeCliente.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeCliente() {
+
+            mensajeCliente.textContent =
+                "";
+
+
+            mensajeCliente.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeProducto(texto) {
+
+            mensajeProducto.textContent =
+                texto;
+
+
+            mensajeProducto.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeProducto() {
+
+            mensajeProducto.textContent =
+                "";
+
+
+            mensajeProducto.style.display =
                 "none";
 
         }
