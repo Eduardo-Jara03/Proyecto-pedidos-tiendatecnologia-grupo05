@@ -8,32 +8,41 @@
 * Rivera Hipolito, Carlos Fernando U23216154
 * Reyes Vicente, Bruno Santiago U19221035
 
-## Descripción del proyecto - Módulo de pedidos
+## Descripción del proyecto
 
-Esta versión incluye el módulo de gestión de pedidos.
+El proyecto consiste en desarrollar una aplicación web para registrar, consultar y gestionar los pedidos de los clientes de una tienda de tecnología.
 
-El proyecto consiste en desarrollar una aplicación para registrar y consultar los pedidos de los clientes de una tienda de tecnología.
+El sistema permite organizar la información relacionada con clientes, productos y pedidos, facilitando las principales operaciones de la tienda.
 
-El sistema permitirá organizar la información relacionada con clientes, productos y pedidos, facilitando la gestión de las operaciones principales de la tienda.
-
-El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de control de versiones y repositorio remoto, permitiendo que los integrantes del equipo trabajen de manera colaborativa y mantengan un historial de los cambios realizados.
+La aplicación fue desarrollada utilizando HTML, CSS y JavaScript, y el código fuente se gestiona mediante Git y GitHub.
 
 ## Funcionalidades principales
 
 ### Módulo de clientes
 
-* Registrar cliente.
+* Registrar clientes.
 * Listar clientes.
+* Validar los datos ingresados.
 
 ### Módulo de productos
 
-* Registrar producto.
+* Registrar productos.
 * Listar productos.
+* Validar los datos ingresados.
+* Calcular y mostrar los precios de los productos.
 
-### Módulo de pedidos
+* Seleccionar clientes y productos registrados.
+* Calcular automáticamente el total del pedido.
+* Consultar pedidos registrados.
+* Buscar pedidos por código o cliente.
+* Editar pedidos.
+* Eliminar pedidos.
+* Validar los datos ingresados.
 
-* Registrar pedido.
-* Consultar pedidos.
+### Persistencia de datos
+
+* Almacenar la información de clientes, productos y pedidos mediante `localStorage`.
+* Mantener los datos registrados al recargar la página.
 
 ## Tecnologías utilizadas
 
@@ -44,14 +53,14 @@ El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de
 * GitHub
 * Visual Studio Code
 
-## Control de versiones
+## Estructura del proyecto
 
-Git será utilizado para controlar las versiones del proyecto, registrar los cambios realizados por cada integrante y facilitar el trabajo colaborativo.
+```text
+src/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/### Módulo de pedidos
 
-GitHub será utilizado como repositorio remoto para almacenar el código fuente y permitir la integración de los cambios realizados por los integrantes del equipo.
-
-Version integrada desde la rama develop.
-
-Version del módulo de pedidos.
-
+* Registrar pedidos.
 
