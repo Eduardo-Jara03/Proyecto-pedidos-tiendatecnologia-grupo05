@@ -66,3 +66,5 @@ src/
 └── js/
 
 
+
+Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
