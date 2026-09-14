@@ -64,7 +64,6 @@ src/
 ├── css/
 │   └── estilos.css
 └── js/
-
-
+```
 
 Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
