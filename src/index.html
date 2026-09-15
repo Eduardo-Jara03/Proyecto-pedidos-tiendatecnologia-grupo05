@@ -12,9 +12,7 @@
 
 <body>
 
-    <!-- ========================= -->
     <!-- ENCABEZADO -->
-    <!-- ========================= -->
 
     <header class="header-principal">
 
@@ -42,9 +40,7 @@
 
     <main>
 
-        <!-- ========================= -->
         <!-- PANEL DE BIENVENIDA -->
-        <!-- ========================= -->
 
         <section class="hero">
 
@@ -68,10 +64,7 @@
 
         </section>
 
-
-        <!-- ========================= -->
         <!-- MÓDULO DE CLIENTES -->
-        <!-- ========================= -->
 
         <section class="card">
 
@@ -96,26 +89,11 @@
 
             <form id="clienteForm">
 
-                <input
-                    type="text"
-                    id="nombre"
-                    placeholder="Nombre completo"
-                    required
-                >
+                <input type="text" id="nombre" placeholder="Nombre completo" required>
 
-                <input
-                    type="text"
-                    id="documento"
-                    placeholder="Documento"
-                    required
-                >
+                <input type="text" id="documento" placeholder="Documento" required>
 
-                <input
-                    type="email"
-                    id="correo"
-                    placeholder="Correo electrónico"
-                    required
-                >
+                <input type="email" id="correo" placeholder="Correo electrónico" required>
 
                 <button type="submit">
                     + Registrar cliente
@@ -124,9 +102,7 @@
             </form>
 
 
-            <div
-                id="mensajeCliente"
-                class="mensaje">
+            <div id="mensajeCliente" class="mensaje">
             </div>
 
         </section>
@@ -170,10 +146,7 @@
 
         </section>
 
-
-        <!-- ========================= -->
         <!-- MÓDULO DE PRODUCTOS -->
-        <!-- ========================= -->
 
         <section class="card">
 
@@ -198,28 +171,11 @@
 
             <form id="productoForm">
 
-                <input
-                    type="text"
-                    id="codigoProducto"
-                    placeholder="Código del producto"
-                    required
-                >
+                <input type="text" id="codigoProducto" placeholder="Código del producto" required>
 
-                <input
-                    type="text"
-                    id="nombreProducto"
-                    placeholder="Nombre del producto"
-                    required
-                >
+                <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
 
-                <input
-                    type="number"
-                    id="precioProducto"
-                    placeholder="Precio"
-                    min="0.01"
-                    step="0.01"
-                    required
-                >
+                <input type="number" id="precioProducto" placeholder="Precio" min="0.01" step="0.01" required>
 
                 <button type="submit">
                     + Registrar producto
@@ -228,9 +184,7 @@
             </form>
 
 
-            <div
-                id="mensajeProducto"
-                class="mensaje">
+            <div id="mensajeProducto" class="mensaje">
             </div>
 
         </section>
@@ -276,10 +230,7 @@
 
         </section>
 
-
-        <!-- ========================= -->
         <!-- MÓDULO DE PEDIDOS -->
-        <!-- ========================= -->
 
         <section class="card card-pedido">
 
@@ -307,13 +258,7 @@
                         Código del pedido
                     </label>
 
-                    <input
-                        type="text"
-                        id="codigoPedido"
-                        class="codigo-pedido"
-                        placeholder="Código del pedido"
-                        readonly
-                    >
+                    <input type="text" id="codigoPedido" class="codigo-pedido" placeholder="Código del pedido" readonly>
 
                 </div>
 
@@ -326,10 +271,7 @@
                             Cliente
                         </label>
 
-                        <select
-                            id="clientePedido"
-                            required
-                        >
+                        <select id="clientePedido" required>
 
                             <option value="">
                                 Seleccione un cliente
@@ -346,10 +288,7 @@
                             Producto
                         </label>
 
-                        <select
-                            id="productoPedido"
-                            required
-                        >
+                        <select id="productoPedido" required>
 
                             <option value="">
                                 Seleccione un producto
@@ -366,14 +305,7 @@
                             Cantidad
                         </label>
 
-                        <input
-                            type="number"
-                            id="cantidadPedido"
-                            placeholder="Cantidad"
-                            min="1"
-                            step="1"
-                            required
-                        >
+                        <input type="number" id="cantidadPedido" placeholder="Cantidad" min="1" step="1" required>
 
                     </div>
 
@@ -388,12 +320,7 @@
                             Precio unitario
                         </label>
 
-                        <input
-                            type="text"
-                            id="precioPedido"
-                            placeholder="Precio unitario"
-                            readonly
-                        >
+                        <input type="text" id="precioPedido" placeholder="Precio unitario" readonly>
 
                     </div>
 
@@ -404,12 +331,7 @@
                             Total del pedido
                         </label>
 
-                        <input
-                            type="text"
-                            id="totalPedido"
-                            placeholder="Total"
-                            readonly
-                        >
+                        <input type="text" id="totalPedido" placeholder="Total" readonly>
 
                     </div>
 
@@ -418,20 +340,12 @@
 
                 <div class="acciones-pedido">
 
-                    <button
-                        type="submit"
-                        id="btnPedido"
-                    >
+                    <button type="submit" id="btnPedido">
                         Registrar pedido
                     </button>
 
 
-                    <button
-                        type="button"
-                        id="btnCancelarEdicion"
-                        class="btn-cancelar"
-                        style="display: none;"
-                    >
+                    <button type="button" id="btnCancelarEdicion" class="btn-cancelar" style="display: none;">
                         Cancelar edición
                     </button>
 
@@ -440,9 +354,7 @@
             </form>
 
 
-            <div
-                id="mensajePedido"
-                class="mensaje">
+            <div id="mensajePedido" class="mensaje">
             </div>
 
         </section>
@@ -481,44 +393,29 @@
 
                     <span>⌕</span>
 
-                    <input
-                        type="text"
-                        id="buscarPedido"
-                        placeholder="Ejemplo: PED-001, 001, Juan o Laptop"
-                        autocomplete="off"
-                    >
+                    <input type="text" id="buscarPedido" placeholder="Ejemplo: PED-001, 001, Juan o Laptop"
+                        autocomplete="off">
 
                 </div>
 
 
-                <button
-                    type="button"
-                    id="btnBuscar"
-                >
+                <button type="button" id="btnBuscar">
                     Buscar
                 </button>
 
 
-                <button
-                    type="button"
-                    id="btnMostrarTodos"
-                    class="btn-secundario"
-                >
+                <button type="button" id="btnMostrarTodos" class="btn-secundario">
                     Mostrar todos
                 </button>
 
             </div>
 
 
-            <div
-                id="mensajeBusqueda"
-                class="mensaje-busqueda">
+            <div id="mensajeBusqueda" class="mensaje-busqueda">
             </div>
 
 
-            <div
-                id="contadorResultados"
-                class="contador-resultados">
+            <div id="contadorResultados" class="contador-resultados">
             </div>
 
 
@@ -552,9 +449,7 @@
     </main>
 
 
-    <!-- ========================= -->
     <!-- PIE DE PÁGINA -->
-    <!-- ========================= -->
 
     <footer>
 
@@ -573,9 +468,8 @@
 
     <script>
 
-        // ==================================================
         // DATOS DEL SISTEMA
-        // ==================================================
+
 
         let clientes =
             JSON.parse(localStorage.getItem("clientes")) || [];
@@ -598,9 +492,7 @@
         let pedidoEditando = null;
 
 
-        // ==================================================
         // ELEMENTOS DEL DOM
-        // ==================================================
 
         const formularioCliente =
             document.getElementById("clienteForm");
@@ -693,14 +585,11 @@
         const btnCancelarEdicion =
             document.getElementById("btnCancelarEdicion");
 
-
-        // ==================================================
         // CLIENTES
-        // ==================================================
 
         formularioCliente.addEventListener(
             "submit",
-            function(event) {
+            function (event) {
 
                 event.preventDefault();
 
@@ -728,7 +617,7 @@
 
                 const documentoExiste =
                     clientes.some(
-                        function(cliente) {
+                        function (cliente) {
 
                             return String(cliente.documento)
                                 .toLowerCase() ===
@@ -794,7 +683,7 @@
 
 
             clientes.forEach(
-                function(cliente, index) {
+                function (cliente, index) {
 
                     const fila =
                         document.createElement("tr");
@@ -822,14 +711,11 @@
 
         }
 
-
-        // ==================================================
         // PRODUCTOS
-        // ==================================================
 
         formularioProducto.addEventListener(
             "submit",
-            function(event) {
+            function (event) {
 
                 event.preventDefault();
 
@@ -858,7 +744,7 @@
 
                 const codigoExiste =
                     productos.some(
-                        function(producto) {
+                        function (producto) {
 
                             return String(producto.codigo)
                                 .toLowerCase() ===
@@ -934,7 +820,7 @@
 
 
             productos.forEach(
-                function(producto, index) {
+                function (producto, index) {
 
                     const fila =
                         document.createElement("tr");
@@ -969,9 +855,8 @@
         }
 
 
-        // ==================================================
+
         // GENERAR CÓDIGO DE PEDIDO
-        // ==================================================
 
         function generarCodigoPedido() {
 
@@ -990,9 +875,7 @@
         }
 
 
-        // ==================================================
         // ACTUALIZAR CLIENTES DEL PEDIDO
-        // ==================================================
 
         function actualizarClientesPedido() {
 
@@ -1001,7 +884,7 @@
 
 
             clientes.forEach(
-                function(cliente, index) {
+                function (cliente, index) {
 
                     const opcion =
                         document.createElement("option");
@@ -1024,9 +907,7 @@
         }
 
 
-        // ==================================================
         // ACTUALIZAR PRODUCTOS DEL PEDIDO
-        // ==================================================
 
         function actualizarProductosPedido() {
 
@@ -1035,7 +916,7 @@
 
 
             productos.forEach(
-                function(producto, index) {
+                function (producto, index) {
 
                     const opcion =
                         document.createElement("option");
@@ -1058,13 +939,11 @@
         }
 
 
-        // ==================================================
         // SELECCIÓN DE PRODUCTO
-        // ==================================================
 
         selectorProducto.addEventListener(
             "change",
-            function() {
+            function () {
 
                 const indice =
                     selectorProducto.value;
@@ -1094,13 +973,11 @@
         );
 
 
-        // ==================================================
         // CANTIDAD
-        // ==================================================
 
         cantidadPedido.addEventListener(
             "input",
-            function() {
+            function () {
 
                 calcularTotal();
 
@@ -1151,13 +1028,11 @@
         }
 
 
-        // ==================================================
         // REGISTRAR / ACTUALIZAR PEDIDO
-        // ==================================================
 
         formularioPedido.addEventListener(
             "submit",
-            function(event) {
+            function (event) {
 
                 event.preventDefault();
 
@@ -1223,9 +1098,7 @@
                     Number(producto.precio) * cantidad;
 
 
-                // ==========================================
                 // ACTUALIZAR PEDIDO
-                // ==========================================
 
                 if (pedidoEditando !== null) {
 
@@ -1352,7 +1225,7 @@
 
 
             lista.forEach(
-                function(pedido) {
+                function (pedido) {
 
                     const indiceReal =
                         pedidos.indexOf(pedido);
@@ -1460,7 +1333,7 @@
 
             const indiceCliente =
                 clientes.findIndex(
-                    function(cliente) {
+                    function (cliente) {
 
                         return String(cliente.nombre) ===
                             String(pedido.cliente);
@@ -1471,7 +1344,7 @@
 
             const indiceProducto =
                 productos.findIndex(
-                    function(producto) {
+                    function (producto) {
 
                         return String(producto.nombre) ===
                             String(pedido.producto);
@@ -1554,7 +1427,7 @@
 
         btnCancelarEdicion.addEventListener(
             "click",
-            function() {
+            function () {
 
                 cancelarEdicion();
 
@@ -1588,7 +1461,7 @@
 
             const resultados =
                 pedidos.filter(
-                    function(pedido) {
+                    function (pedido) {
 
                         /*
                          * Convertimos todos los valores a texto
@@ -1656,7 +1529,7 @@
 
         btnBuscar.addEventListener(
             "click",
-            function() {
+            function () {
 
                 buscarPedidos();
 
@@ -1670,7 +1543,7 @@
 
         buscarPedido.addEventListener(
             "keydown",
-            function(event) {
+            function (event) {
 
                 if (event.key === "Enter") {
 
@@ -1689,7 +1562,7 @@
 
         buscarPedido.addEventListener(
             "input",
-            function() {
+            function () {
 
                 buscarPedidos();
 
@@ -1703,7 +1576,7 @@
 
         btnMostrarTodos.addEventListener(
             "click",
-            function() {
+            function () {
 
                 buscarPedido.value = "";
 
