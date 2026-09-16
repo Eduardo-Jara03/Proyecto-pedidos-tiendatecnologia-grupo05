@@ -70,6 +70,41 @@
 
 
         <!-- ========================= -->
+        <!-- Aporte: Nery Emerson Velásquez Pacheco -->
+        <!-- ========================= -->
+
+        <section class="resumen-sistema">
+
+            <h2>Resumen General del Sistema</h2>
+
+            <div class="resumen-card">
+                <div class="resumen-icono" aria-hidden="true">👤</div>
+                <h3>Clientes registrados</h3>
+                <p id="resumenClientes">0</p>
+            </div>
+
+            <div class="resumen-card">
+                <div class="resumen-icono" aria-hidden="true">📦</div>
+                <h3>Productos registrados</h3>
+                <p id="resumenProductos">0</p>
+            </div>
+
+            <div class="resumen-card">
+                <div class="resumen-icono" aria-hidden="true">🛒</div>
+                <h3>Pedidos realizados</h3>
+                <p id="resumenPedidos">0</p>
+            </div>
+
+            <div class="resumen-card">
+                <div class="resumen-icono" aria-hidden="true">💰</div>
+                <h3>Total vendido</h3>
+                <p id="resumenVentas">S/ 0.00</p>
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
         <!-- MÓDULO DE CLIENTES -->
         <!-- ========================= -->
 
@@ -785,6 +820,9 @@
                 JSON.stringify(clientes)
             );
 
+
+            actualizarResumenSistema();
+
         }
 
 
@@ -924,6 +962,9 @@
                 "productos",
                 JSON.stringify(productos)
             );
+
+
+            actualizarResumenSistema();
 
         }
 
@@ -1340,6 +1381,9 @@
                 "pedidos",
                 JSON.stringify(pedidos)
             );
+
+
+            actualizarResumenSistema();
 
         }
 
@@ -1889,6 +1933,39 @@
         }
 
 
+        // RESUMEN GENERAL DEL SISTEMA
+
+        function actualizarResumenSistema() {
+
+            document.getElementById("resumenClientes").textContent =
+                clientes.length;
+
+
+            document.getElementById("resumenProductos").textContent =
+                productos.length;
+
+
+            document.getElementById("resumenPedidos").textContent =
+                pedidos.length;
+
+
+            const totalVendido =
+                pedidos.reduce(
+                    function(total, pedido) {
+
+                        return total + Number(pedido.total);
+
+                    },
+                    0
+                );
+
+
+            document.getElementById("resumenVentas").textContent =
+                "S/ " + totalVendido.toFixed(2);
+
+        }
+
+
         // CARGAR INFORMACIÓN AL INICIAR
 
         mostrarClientes();
@@ -1907,6 +1984,8 @@
 
 
         actualizarCodigoPedido();
+
+        actualizarResumenSistema();
 
     </script>
 
