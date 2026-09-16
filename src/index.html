@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TechStore | Gestión de Pedidos</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+
+    <header class="header-principal">
+
+        <div class="header-contenido">
+
+            <div class="logo-tech">
+                <div class="logo-icono">⚡</div>
+
+                <div>
+                    <h1>TechStore</h1>
+                    <p>Sistema de Gestión de Pedidos</p>
+                </div>
+            </div>
+
+            <div class="header-info">
+                <span>Gestión de clientes</span>
+                <span>Productos</span>
+                <span>Pedidos</span>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- PANEL DE BIENVENIDA -->
+
+        <section class="hero">
+
+            <div>
+                <span class="hero-etiqueta">TIENDA DE TECNOLOGÍA</span>
+
+                <h2>
+                    Gestión de pedidos
+                    <span>simple y eficiente.</span>
+                </h2>
+
+                <p>
+                    Administra clientes, productos y pedidos
+                    desde una sola plataforma.
+                </p>
+            </div>
+
+            <div class="hero-icono">
+                💻
+            </div>
+
+        </section>
+
+        <!-- MÓDULO DE CLIENTES -->
+
+        <section class="card">
+
+            <div class="titulo-seccion">
+
+                <div class="icono-seccion clientes-icono">
+                    👤
+                </div>
+
+                <div>
+                    <h2>Clientes</h2>
+                    <p>Registra y administra los clientes de la tienda.</p>
+                </div>
+
+            </div>
+
+
+            <div class="subtitulo">
+                Registrar cliente
+            </div>
+
+
+            <form id="clienteForm">
+
+                <input type="text" id="nombre" placeholder="Nombre completo" required>
+
+                <input type="text" id="documento" placeholder="Documento" required>
+
+                <input type="email" id="correo" placeholder="Correo electrónico" required>
+
+                <button type="submit">
+                    + Registrar cliente
+                </button>
+
+            </form>
+
+
+            <div id="mensajeCliente" class="mensaje">
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <div class="titulo-tabla">
+                <div>
+                    <h2>Clientes registrados</h2>
+                    <p>Listado de clientes almacenados.</p>
+                </div>
+
+                <span class="badge-tabla">
+                    CLIENTES
+                </span>
+            </div>
+
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Correo</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="clientesTabla">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- MÓDULO DE PRODUCTOS -->
+
+        <section class="card">
+
+            <div class="titulo-seccion">
+
+                <div class="icono-seccion productos-icono">
+                    📦
+                </div>
+
+                <div>
+                    <h2>Productos</h2>
+                    <p>Registra los productos disponibles en la tienda.</p>
+                </div>
+
+            </div>
+
+
+            <div class="subtitulo">
+                Registrar producto
+            </div>
+
+
+            <form id="productoForm">
+
+                <input type="text" id="codigoProducto" placeholder="Código del producto" required>
+
+                <input type="text" id="nombreProducto" placeholder="Nombre del producto" required>
+
+                <input type="number" id="precioProducto" placeholder="Precio" min="0.01" step="0.01" required>
+
+                <button type="submit">
+                    + Registrar producto
+                </button>
+
+            </form>
+
+
+            <div id="mensajeProducto" class="mensaje">
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <div class="titulo-tabla">
+
+                <div>
+                    <h2>Productos registrados</h2>
+                    <p>Catálogo actual de productos.</p>
+                </div>
+
+                <span class="badge-tabla">
+                    PRODUCTOS
+                </span>
+
+            </div>
+
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="productosTabla">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- MÓDULO DE PEDIDOS -->
+
+        <section class="card card-pedido">
+
+            <div class="titulo-seccion">
+
+                <div class="icono-seccion pedidos-icono">
+                    🛒
+                </div>
+
+                <div>
+                    <h2 id="tituloPedido">Registrar pedido</h2>
+                    <p>
+                        Selecciona el cliente, producto y cantidad.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form id="pedidoForm">
+
+                <div class="campo-completo">
+
+                    <label for="codigoPedido">
+                        Código del pedido
+                    </label>
+
+                    <input type="text" id="codigoPedido" class="codigo-pedido" placeholder="Código del pedido" readonly>
+
+                </div>
+
+
+                <div class="grid-formulario">
+
+                    <div class="campo">
+
+                        <label for="clientePedido">
+                            Cliente
+                        </label>
+
+                        <select id="clientePedido" required>
+
+                            <option value="">
+                                Seleccione un cliente
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="productoPedido">
+                            Producto
+                        </label>
+
+                        <select id="productoPedido" required>
+
+                            <option value="">
+                                Seleccione un producto
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="cantidadPedido">
+                            Cantidad
+                        </label>
+
+                        <input type="number" id="cantidadPedido" placeholder="Cantidad" min="1" step="1" required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="resumen-pedido">
+
+                    <div class="campo">
+
+                        <label for="precioPedido">
+                            Precio unitario
+                        </label>
+
+                        <input type="text" id="precioPedido" placeholder="Precio unitario" readonly>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="totalPedido">
+                            Total del pedido
+                        </label>
+
+                        <input type="text" id="totalPedido" placeholder="Total" readonly>
+
+                    </div>
+
+                </div>
+
+
+                <div class="acciones-pedido">
+
+                    <button type="submit" id="btnPedido">
+                        Registrar pedido
+                    </button>
+
+
+                    <button type="button" id="btnCancelarEdicion" class="btn-cancelar" style="display: none;">
+                        Cancelar edición
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div id="mensajePedido" class="mensaje">
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- CONSULTA DE PEDIDOS -->
+        <!-- ========================= -->
+
+        <section class="card card-consulta">
+
+            <div class="titulo-tabla">
+
+                <div>
+
+                    <h2>Consulta de pedidos</h2>
+
+                    <p>
+                        Busca pedidos por código, número, cliente o producto.
+                    </p>
+
+                </div>
+
+                <span class="badge-tabla badge-pedidos">
+                    PEDIDOS
+                </span>
+
+            </div>
+
+
+            <!-- BUSCADOR -->
+
+            <div class="busqueda-pedidos">
+
+                <div class="buscador-input">
+
+                    <span>⌕</span>
+
+                    <input type="text" id="buscarPedido" placeholder="Ejemplo: PED-001, 001, Juan o Laptop"
+                        autocomplete="off">
+
+                </div>
+
+
+                <button type="button" id="btnBuscar">
+                    Buscar
+                </button>
+
+
+                <button type="button" id="btnMostrarTodos" class="btn-secundario">
+                    Mostrar todos
+                </button>
+
+            </div>
+
+
+            <div id="mensajeBusqueda" class="mensaje-busqueda">
+            </div>
+
+
+            <div id="contadorResultados" class="contador-resultados">
+            </div>
+
+
+            <div class="tabla-contenedor">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>N° Pedido</th>
+                            <th>Cliente</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio unitario</th>
+                            <th>Total</th>
+                            <th>Acción</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="pedidosTabla">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer>
+
+        <p>
+            ⚡ TechStore
+            <span>|</span>
+            Sistema de Gestión de Pedidos
+        </p>
+
+        <small>
+            Gestión de clientes, productos y pedidos
+        </small>
+
+    </footer>
+
+
+    <script>
+
+        // DATOS DEL SISTEMA
+
+
+        let clientes =
+            JSON.parse(localStorage.getItem("clientes")) || [];
+
+
+        let productos =
+            JSON.parse(localStorage.getItem("productos")) || [];
+
+
+        let pedidos =
+            JSON.parse(localStorage.getItem("pedidos")) || [];
+
+
+        let contadorPedidos =
+            parseInt(
+                localStorage.getItem("contadorPedidos")
+            ) || 1;
+
+
+        let pedidoEditando = null;
+
+
+        // ELEMENTOS DEL DOM
+
+        const formularioCliente =
+            document.getElementById("clienteForm");
+
+
+        const tablaClientes =
+            document.getElementById("clientesTabla");
+
+
+        const formularioProducto =
+            document.getElementById("productoForm");
+
+
+        const tablaProductos =
+            document.getElementById("productosTabla");
+
+
+        const formularioPedido =
+            document.getElementById("pedidoForm");
+
+
+        const codigoPedido =
+            document.getElementById("codigoPedido");
+
+
+        const selectorCliente =
+            document.getElementById("clientePedido");
+
+
+        const selectorProducto =
+            document.getElementById("productoPedido");
+
+
+        const cantidadPedido =
+            document.getElementById("cantidadPedido");
+
+
+        const precioPedido =
+            document.getElementById("precioPedido");
+
+
+        const totalPedido =
+            document.getElementById("totalPedido");
+
+
+        const tablaPedidos =
+            document.getElementById("pedidosTabla");
+
+
+        const mensajePedido =
+            document.getElementById("mensajePedido");
+
+
+        const buscarPedido =
+            document.getElementById("buscarPedido");
+
+
+        const btnBuscar =
+            document.getElementById("btnBuscar");
+
+
+        const btnMostrarTodos =
+            document.getElementById("btnMostrarTodos");
+
+
+        const mensajeBusqueda =
+            document.getElementById("mensajeBusqueda");
+
+
+        const contadorResultados =
+            document.getElementById("contadorResultados");
+
+
+        const mensajeCliente =
+            document.getElementById("mensajeCliente");
+
+
+        const mensajeProducto =
+            document.getElementById("mensajeProducto");
+
+
+        const tituloPedido =
+            document.getElementById("tituloPedido");
+
+
+        const btnPedido =
+            document.getElementById("btnPedido");
+
+
+        const btnCancelarEdicion =
+            document.getElementById("btnCancelarEdicion");
+
+        // CLIENTES
+
+        formularioCliente.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const nombre =
+                    document
+                        .getElementById("nombre")
+                        .value
+                        .trim();
+
+
+                const documento =
+                    document
+                        .getElementById("documento")
+                        .value
+                        .trim();
+
+
+                const correo =
+                    document
+                        .getElementById("correo")
+                        .value
+                        .trim();
+
+
+                const documentoExiste =
+                    clientes.some(
+                        function (cliente) {
+
+                            return String(cliente.documento)
+                                .toLowerCase() ===
+                                documento.toLowerCase();
+
+                        }
+                    );
+
+
+                if (documentoExiste) {
+
+                    mostrarMensajeCliente(
+                        "Ya existe un cliente registrado con ese documento."
+                    );
+
+                    return;
+                }
+
+
+                const cliente = {
+
+                    nombre: nombre,
+                    documento: documento,
+                    correo: correo
+
+                };
+
+
+                clientes.push(cliente);
+
+
+                guardarClientes();
+
+
+                mostrarClientes();
+
+
+                actualizarClientesPedido();
+
+
+                formularioCliente.reset();
+
+
+                ocultarMensajeCliente();
+
+            }
+        );
+
+
+        function guardarClientes() {
+
+            localStorage.setItem(
+                "clientes",
+                JSON.stringify(clientes)
+            );
+
+        }
+
+
+        function mostrarClientes() {
+
+            tablaClientes.innerHTML = "";
+
+
+            clientes.forEach(
+                function (cliente, index) {
+
+                    const fila =
+                        document.createElement("tr");
+
+
+                    fila.innerHTML = `
+
+                        <td>${index + 1}</td>
+
+                        <td>
+                            <strong>${cliente.nombre}</strong>
+                        </td>
+
+                        <td>${cliente.documento}</td>
+
+                        <td>${cliente.correo}</td>
+
+                    `;
+
+
+                    tablaClientes.appendChild(fila);
+
+                }
+            );
+
+        }
+
+        // PRODUCTOS
+
+        formularioProducto.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const codigo =
+                    document
+                        .getElementById("codigoProducto")
+                        .value
+                        .trim();
+
+
+                const nombre =
+                    document
+                        .getElementById("nombreProducto")
+                        .value
+                        .trim();
+
+
+                const precio =
+                    parseFloat(
+                        document
+                            .getElementById("precioProducto")
+                            .value
+                    );
+
+
+                const codigoExiste =
+                    productos.some(
+                        function (producto) {
+
+                            return String(producto.codigo)
+                                .toLowerCase() ===
+                                codigo.toLowerCase();
+
+                        }
+                    );
+
+
+                if (codigoExiste) {
+
+                    mostrarMensajeProducto(
+                        "Ya existe un producto registrado con ese código."
+                    );
+
+                    return;
+                }
+
+
+                if (isNaN(precio) || precio <= 0) {
+
+                    mostrarMensajeProducto(
+                        "El precio del producto debe ser mayor que 0."
+                    );
+
+                    return;
+                }
+
+
+                const producto = {
+
+                    codigo: codigo,
+                    nombre: nombre,
+                    precio: precio
+
+                };
+
+
+                productos.push(producto);
+
+
+                guardarProductos();
+
+
+                mostrarProductos();
+
+
+                actualizarProductosPedido();
+
+
+                formularioProducto.reset();
+
+
+                ocultarMensajeProducto();
+
+            }
+        );
+
+
+        function guardarProductos() {
+
+            localStorage.setItem(
+                "productos",
+                JSON.stringify(productos)
+            );
+
+        }
+
+
+        function mostrarProductos() {
+
+            tablaProductos.innerHTML = "";
+
+
+            productos.forEach(
+                function (producto, index) {
+
+                    const fila =
+                        document.createElement("tr");
+
+
+                    fila.innerHTML = `
+
+                        <td>${index + 1}</td>
+
+                        <td>
+                            <span class="codigo-producto">
+                                ${producto.codigo}
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong>${producto.nombre}</strong>
+                        </td>
+
+                        <td class="precio">
+                            S/ ${Number(producto.precio).toFixed(2)}
+                        </td>
+
+                    `;
+
+
+                    tablaProductos.appendChild(fila);
+
+                }
+            );
+
+        }
+
+
+
+        // GENERAR CÓDIGO DE PEDIDO
+
+        function generarCodigoPedido() {
+
+            return "PED-" +
+                String(contadorPedidos)
+                    .padStart(3, "0");
+
+        }
+
+
+        function actualizarCodigoPedido() {
+
+            codigoPedido.value =
+                generarCodigoPedido();
+
+        }
+
+
+        // ACTUALIZAR CLIENTES DEL PEDIDO
+
+        function actualizarClientesPedido() {
+
+            selectorCliente.innerHTML =
+                '<option value="">Seleccione un cliente</option>';
+
+
+            clientes.forEach(
+                function (cliente, index) {
+
+                    const opcion =
+                        document.createElement("option");
+
+
+                    opcion.value = index;
+
+
+                    opcion.textContent =
+                        cliente.nombre +
+                        " - " +
+                        cliente.documento;
+
+
+                    selectorCliente.appendChild(opcion);
+
+                }
+            );
+
+        }
+
+
+        // ACTUALIZAR PRODUCTOS DEL PEDIDO
+
+        function actualizarProductosPedido() {
+
+            selectorProducto.innerHTML =
+                '<option value="">Seleccione un producto</option>';
+
+
+            productos.forEach(
+                function (producto, index) {
+
+                    const opcion =
+                        document.createElement("option");
+
+
+                    opcion.value = index;
+
+
+                    opcion.textContent =
+                        producto.nombre +
+                        " - S/ " +
+                        Number(producto.precio).toFixed(2);
+
+
+                    selectorProducto.appendChild(opcion);
+
+                }
+            );
+
+        }
+
+
+        // SELECCIÓN DE PRODUCTO
+
+        selectorProducto.addEventListener(
+            "change",
+            function () {
+
+                const indice =
+                    selectorProducto.value;
+
+
+                if (indice === "") {
+
+                    precioPedido.value = "";
+                    totalPedido.value = "";
+
+                    return;
+                }
+
+
+                const producto =
+                    productos[indice];
+
+
+                precioPedido.value =
+                    "S/ " +
+                    Number(producto.precio).toFixed(2);
+
+
+                calcularTotal();
+
+            }
+        );
+
+
+        // CANTIDAD
+
+        cantidadPedido.addEventListener(
+            "input",
+            function () {
+
+                calcularTotal();
+
+            }
+        );
+
+
+        // ==================================================
+        // CALCULAR TOTAL
+        // ==================================================
+
+        function calcularTotal() {
+
+            const indice =
+                selectorProducto.value;
+
+
+            const cantidad =
+                parseInt(
+                    cantidadPedido.value
+                );
+
+
+            if (
+                indice === "" ||
+                isNaN(cantidad) ||
+                cantidad < 1
+            ) {
+
+                totalPedido.value = "";
+
+                return;
+            }
+
+
+            const producto =
+                productos[indice];
+
+
+            const total =
+                Number(producto.precio) * cantidad;
+
+
+            totalPedido.value =
+                "S/ " +
+                total.toFixed(2);
+
+        }
+
+
+        // REGISTRAR / ACTUALIZAR PEDIDO
+
+        formularioPedido.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (clientes.length === 0) {
+
+                    mostrarMensaje(
+                        "Primero debe registrar al menos un cliente."
+                    );
+
+                    return;
+                }
+
+
+                if (productos.length === 0) {
+
+                    mostrarMensaje(
+                        "Primero debe registrar al menos un producto."
+                    );
+
+                    return;
+                }
+
+
+                const indiceCliente =
+                    selectorCliente.value;
+
+
+                const indiceProducto =
+                    selectorProducto.value;
+
+
+                const cantidad =
+                    parseInt(
+                        cantidadPedido.value
+                    );
+
+
+                if (
+                    indiceCliente === "" ||
+                    indiceProducto === "" ||
+                    isNaN(cantidad) ||
+                    cantidad < 1
+                ) {
+
+                    mostrarMensaje(
+                        "Complete correctamente todos los datos del pedido. La cantidad debe ser mayor o igual a 1."
+                    );
+
+                    return;
+                }
+
+
+                const cliente =
+                    clientes[indiceCliente];
+
+
+                const producto =
+                    productos[indiceProducto];
+
+
+                const total =
+                    Number(producto.precio) * cantidad;
+
+
+                // ACTUALIZAR PEDIDO
+
+                if (pedidoEditando !== null) {
+
+                    pedidos[pedidoEditando] = {
+
+                        codigo:
+                            pedidos[pedidoEditando].codigo,
+
+                        cliente:
+                            cliente.nombre,
+
+                        producto:
+                            producto.nombre,
+
+                        cantidad:
+                            cantidad,
+
+                        precio:
+                            Number(producto.precio),
+
+                        total:
+                            total
+
+                    };
+
+
+                    guardarPedidos();
+
+
+                    mostrarPedidos();
+
+
+                    cancelarEdicion();
+
+
+                    mostrarMensajeExito(
+                        "Pedido actualizado correctamente."
+                    );
+
+
+                    return;
+                }
+
+
+                // ==========================================
+                // REGISTRAR NUEVO PEDIDO
+                // ==========================================
+
+                const pedido = {
+
+                    codigo:
+                        generarCodigoPedido(),
+
+                    cliente:
+                        cliente.nombre,
+
+                    producto:
+                        producto.nombre,
+
+                    cantidad:
+                        cantidad,
+
+                    precio:
+                        Number(producto.precio),
+
+                    total:
+                        total
+
+                };
+
+
+                pedidos.push(pedido);
+
+
+                contadorPedidos++;
+
+
+                guardarPedidos();
+
+
+                localStorage.setItem(
+                    "contadorPedidos",
+                    contadorPedidos
+                );
+
+
+                mostrarPedidos();
+
+
+                formularioPedido.reset();
+
+
+                precioPedido.value = "";
+
+
+                totalPedido.value = "";
+
+
+                actualizarCodigoPedido();
+
+
+                ocultarMensaje();
+
+            }
+        );
+
+        // GUARDAR PEDIDOS
+
+        function guardarPedidos() {
+
+            localStorage.setItem(
+                "pedidos",
+                JSON.stringify(pedidos)
+            );
+
+        }
+
+
+        // MOSTRAR PEDIDOS
+
+        function mostrarPedidos(lista = pedidos) {
+
+            tablaPedidos.innerHTML = "";
+
+
+            lista.forEach(
+                function (pedido) {
+
+                    const indiceReal =
+                        pedidos.indexOf(pedido);
+
+
+                    const fila =
+                        document.createElement("tr");
+
+
+                    fila.innerHTML = `
+
+                        <td>
+                            <span class="codigo-pedido-tabla">
+                                ${String(pedido.codigo)}
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong>${pedido.cliente}</strong>
+                        </td>
+
+                        <td>
+                            ${pedido.producto}
+                        </td>
+
+                        <td>
+                            ${pedido.cantidad}
+                        </td>
+
+                        <td>
+                            S/ ${Number(pedido.precio).toFixed(2)}
+                        </td>
+
+                        <td>
+                            <strong class="total-tabla">
+                                S/ ${Number(pedido.total).toFixed(2)}
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            <div class="acciones-tabla">
+
+                                <button
+                                    type="button"
+                                    class="btn-editar"
+                                    onclick="editarPedido(${indiceReal})"
+                                >
+                                    Editar
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn-eliminar"
+                                    onclick="eliminarPedido(${indiceReal})"
+                                >
+                                    Eliminar
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    `;
+
+
+                    tablaPedidos.appendChild(fila);
+
+                }
+            );
+
+
+            actualizarContadorResultados(lista.length);
+
+        }
+
+
+        // EDITAR PEDIDO
+
+        function editarPedido(index) {
+
+            const pedido =
+                pedidos[index];
+
+
+            if (!pedido) {
+                return;
+            }
+
+
+            pedidoEditando = index;
+
+
+            tituloPedido.textContent =
+                "Editar pedido";
+
+
+            btnPedido.textContent =
+                "Actualizar pedido";
+
+
+            btnCancelarEdicion.style.display =
+                "block";
+
+
+            const indiceCliente =
+                clientes.findIndex(
+                    function (cliente) {
+
+                        return String(cliente.nombre) ===
+                            String(pedido.cliente);
+
+                    }
+                );
+
+
+            const indiceProducto =
+                productos.findIndex(
+                    function (producto) {
+
+                        return String(producto.nombre) ===
+                            String(pedido.producto);
+
+                    }
+                );
+
+
+            if (indiceCliente !== -1) {
+
+                selectorCliente.value =
+                    indiceCliente;
+
+            }
+
+
+            if (indiceProducto !== -1) {
+
+                selectorProducto.value =
+                    indiceProducto;
+
+
+                precioPedido.value =
+                    "S/ " +
+                    Number(productos[indiceProducto].precio)
+                        .toFixed(2);
+
+            }
+
+
+            cantidadPedido.value =
+                pedido.cantidad;
+
+
+            calcularTotal();
+
+
+            window.scrollTo({
+
+                top: 0,
+                behavior: "smooth"
+
+            });
+
+        }
+
+
+        // CANCELAR EDICIÓN
+
+        function cancelarEdicion() {
+
+            pedidoEditando = null;
+
+
+            tituloPedido.textContent =
+                "Registrar pedido";
+
+
+            btnPedido.textContent =
+                "Registrar pedido";
+
+
+            btnCancelarEdicion.style.display =
+                "none";
+
+
+            formularioPedido.reset();
+
+
+            precioPedido.value = "";
+
+
+            totalPedido.value = "";
+
+
+            actualizarCodigoPedido();
+
+        }
+
+
+        btnCancelarEdicion.addEventListener(
+            "click",
+            function () {
+
+                cancelarEdicion();
+
+                ocultarMensaje();
+
+            }
+        );
+
+
+        // BUSCAR PEDIDOS
+
+        function buscarPedidos() {
+
+            const texto =
+                buscarPedido.value
+                    .trim()
+                    .toLowerCase();
+
+
+            // Si no hay texto, mostrar todos
+
+            if (texto === "") {
+
+                mostrarPedidos();
+
+                ocultarMensajeBusqueda();
+
+                return;
+            }
+
+
+            const resultados =
+                pedidos.filter(
+                    function (pedido) {
+
+                        /*
+                         * Convertimos todos los valores a texto
+                         * para evitar errores con datos antiguos
+                         * guardados en localStorage.
+                         */
+
+                        const codigo =
+                            String(
+                                pedido.codigo ?? ""
+                            ).toLowerCase();
+
+
+                        const cliente =
+                            String(
+                                pedido.cliente ?? ""
+                            ).toLowerCase();
+
+
+                        const producto =
+                            String(
+                                pedido.producto ?? ""
+                            ).toLowerCase();
+
+
+                        /*
+                         * Permite buscar:
+                         *
+                         * PED-001
+                         * 001
+                         * 1
+                         * nombre del cliente
+                         * nombre del producto
+                         */
+
+                        return (
+                            codigo.includes(texto) ||
+                            cliente.includes(texto) ||
+                            producto.includes(texto)
+                        );
+
+                    }
+                );
+
+
+            mostrarPedidos(resultados);
+
+
+            if (resultados.length === 0) {
+
+                mostrarMensajeBusqueda(
+                    "No se encontraron pedidos con ese criterio."
+                );
+
+            } else {
+
+                ocultarMensajeBusqueda();
+
+            }
+
+        }
+
+
+        // BOTÓN BUSCAR
+
+        btnBuscar.addEventListener(
+            "click",
+            function () {
+
+                buscarPedidos();
+
+            }
+        );
+
+
+        // ==================================================
+        // BUSCAR AL PRESIONAR ENTER
+        // ==================================================
+
+        buscarPedido.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    buscarPedidos();
+
+                }
+
+            }
+        );
+
+
+
+        // BÚSQUEDA AUTOMÁTICA MIENTRAS ESCRIBE
+
+        buscarPedido.addEventListener(
+            "input",
+            function () {
+
+                buscarPedidos();
+
+            }
+        );
+
+
+
+        // MOSTRAR TODOS
+
+
+        btnMostrarTodos.addEventListener(
+            "click",
+            function () {
+
+                buscarPedido.value = "";
+
+                mostrarPedidos();
+
+                ocultarMensajeBusqueda();
+
+            }
+        );
+
+
+        // ELIMINAR PEDIDO
+
+        function eliminarPedido(index) {
+
+            const confirmar =
+                confirm(
+                    "¿Está seguro de eliminar este pedido?"
+                );
+
+
+            if (!confirmar) {
+
+                return;
+
+            }
+
+
+            pedidos.splice(index, 1);
+
+
+            guardarPedidos();
+
+
+            mostrarPedidos();
+
+        }
+
+
+        // MENSAJES
+
+        function mostrarMensaje(texto) {
+
+            mensajePedido.textContent =
+                texto;
+
+
+            mensajePedido.classList.remove(
+                "mensaje-exito"
+            );
+
+
+            mensajePedido.style.display =
+                "block";
+
+        }
+
+
+        function mostrarMensajeExito(texto) {
+
+            mensajePedido.textContent =
+                texto;
+
+
+            mensajePedido.classList.add(
+                "mensaje-exito"
+            );
+
+
+            mensajePedido.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensaje() {
+
+            mensajePedido.textContent =
+                "";
+
+
+            mensajePedido.classList.remove(
+                "mensaje-exito"
+            );
+
+
+            mensajePedido.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeCliente(texto) {
+
+            mensajeCliente.textContent =
+                texto;
+
+
+            mensajeCliente.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeCliente() {
+
+            mensajeCliente.textContent =
+                "";
+
+
+            mensajeCliente.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeProducto(texto) {
+
+            mensajeProducto.textContent =
+                texto;
+
+
+            mensajeProducto.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeProducto() {
+
+            mensajeProducto.textContent =
+                "";
+
+
+            mensajeProducto.style.display =
+                "none";
+
+        }
+
+
+        function mostrarMensajeBusqueda(texto) {
+
+            mensajeBusqueda.textContent =
+                texto;
+
+
+            mensajeBusqueda.style.display =
+                "block";
+
+        }
+
+
+        function ocultarMensajeBusqueda() {
+
+            mensajeBusqueda.textContent =
+                "";
+
+
+            mensajeBusqueda.style.display =
+                "none";
+
+        }
+
+
+        // CONTADOR DE RESULTADOS
+
+        function actualizarContadorResultados(cantidad) {
+
+            if (cantidad === 0) {
+
+                contadorResultados.textContent =
+                    "";
+
+                return;
+            }
+
+
+            contadorResultados.textContent =
+                cantidad === 1
+                    ? "1 pedido encontrado"
+                    : cantidad + " pedidos encontrados";
+
+        }
+
+
+        // CARGAR INFORMACIÓN AL INICIAR
+
+        mostrarClientes();
+
+
+        mostrarProductos();
+
+
+        mostrarPedidos();
+
+
+        actualizarClientesPedido();
+
+
+        actualizarProductosPedido();
+
+
+        actualizarCodigoPedido();
+
+    </script>
+
+</body>
+
+</html>

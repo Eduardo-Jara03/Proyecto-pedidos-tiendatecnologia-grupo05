@@ -42,12 +42,17 @@ El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de
 * GitHub
 * Visual Studio Code
 
-## Control de versiones
+## Estructura del proyecto
 
-Git será utilizado para controlar las versiones del proyecto, registrar los cambios realizados por cada integrante y facilitar el trabajo colaborativo.
+```text
+src/
+├── index.html
+├── css/
+│   └── estilos.css
+└── js/
+```
 
-GitHub será utilizado como repositorio remoto para almacenar el código fuente y permitir la integración de los cambios realizados por los integrantes del equipo.
-
+Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
 ## Flujo de trabajo con Git y GitHub
 
 El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
