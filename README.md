@@ -1,47 +1,72 @@
-Sistema de pedidos para una tienda de tecnología
-Integrantes
-Jara Moya, Eduardo Jesús U21302190
-Galvan Zamudio Lisbert Wiliams U22217814
-Velasquez Pacheco, Nery Emerson U23272063
-Rivera Hipolito, Car
- Santiago U19221035
-Descripción del proyecto
-El proyecto consiste en desarrollar una aplicación para registrar y consultar los pedidos de los clientes de una tienda de tecnología.
+# Sistema de Gestión de Pedidos – Tienda de Tecnología
 
-El sistema permitirá organizar la información relacionada con clientes, productos y pedidos, facilitando la gestión de las operaciones principales de la tienda.
+## Integrantes
 
-El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de control de versiones y repositorio remoto, permitiendo que los integrantes del equipo trabajen de manera colaborativa y mantengan un historial de los cambios realizados.
+- Jara Moya, Eduardo Jesús — U21302190
+- Galvan Zamudio, Lisbert Wiliams — U22217814
+- Velasquez Pacheco, Nery Emerson — U23272063
+- Rivera Hipolito, Carlos Fernando — U23216154
+- Reyes Vicente, Bruno Santiago — U19221035
 
-Funcionalidades principales
-Módulo de clientes
-Registrar cliente.
-Listar clientes.
-Módulo de productos
-Registrar producto.
-Listar productos.
-Módulo de pedidos
-Registrar pedido.
-Consultar pedidos.
-Tecnologías utilizadas
-HTML
-CSS
-JavaScript
-Git
-GitHub
-Visual Studio Code
-Control de versiones
-Git será utilizado para controlar las versiones del proyecto, registrar los cambios realizados por cada integrante y facilitar el trabajo colaborativo.
+## Descripción del proyecto
 
-GitHub será utilizado como repositorio remoto para almacenar el código fuente y permitir la integración de los cambios realizados por los integrantes del equipo.
+El proyecto consiste en desarrollar una aplicación web para gestionar clientes, productos y pedidos de una tienda de tecnología.
 
-Flujo de trabajo con Git y GitHub
-El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
+El sistema permite centralizar las operaciones principales de la tienda, facilitando el registro, consulta y administración de la información.
 
-Proceso utilizado
-Crear una rama para realizar una funcionalidad o modificación.
-Realizar los cambios correspondientes.
-Registrar los cambios mediante un commit.
-Subir la rama al repositorio remoto.
-Crear un Pull Request en GitHub.
-Revisar los cambios realizados.
-Integrar los cambios mediante un merge hacia develop.
+El desarrollo utiliza Git y GitHub como sistema de control de versiones y repositorio remoto, permitiendo organizar el trabajo mediante ramas, commits, Pull Requests y fusiones hacia la rama `develop`.
+
+## Funcionalidades principales
+
+### Módulo de clientes
+
+- Registrar clientes.
+- Validar información y evitar registros duplicados.
+- Listar clientes.
+- Mantener los registros mediante `localStorage`.
+
+### Módulo de productos
+
+- Registrar productos.
+- Validar códigos de producto duplicados.
+- Validar precios.
+- Listar productos.
+- Mantener los registros mediante `localStorage`.
+
+### Módulo de pedidos
+
+- Registrar pedidos.
+- Generar identificadores únicos de pedido.
+- Seleccionar clientes y productos registrados.
+- Registrar cantidades y precios.
+- Calcular el total del pedido.
+- Consultar pedidos.
+- Buscar pedidos por código, cliente o producto.
+- Editar pedidos.
+- Eliminar pedidos.
+- Mantener los registros mediante `localStorage`.
+
+## Tecnologías utilizadas
+
+- HTML
+- CSS
+- JavaScript
+- Git
+- GitHub
+- Visual Studio Code
+- localStorage
+
+## Organización del proyecto
+
+```text
+Proyecto-pedidos-tiendatecnologia-grupo05/
+├── docs/
+│   ├── evidencias-carlos.md
+│   └── resolucion-conflictos.md
+├── src/
+│   ├── css/
+│   │   └── estilos.css
+│   ├── js/
+│   │   └── .gitkeep
+│   └── index.html
+└── README.md
