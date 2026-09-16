@@ -50,16 +50,14 @@ GitHub será utilizado como repositorio remoto para almacenar el código fuente 
 
 ## Flujo de trabajo con Git y GitHub
 
-El desarrollo del proyecto se organiza mediante ramas para separar las funcionalidades y facilitar la integración de los cambios.
+El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
 
-El flujo de trabajo utilizado comprende las siguientes etapas:
+### Proceso utilizado
 
-1. Crear una rama para desarrollar una funcionalidad o realizar una modificación.
-2. Realizar los cambios correspondientes en el proyecto.
-3. Registrar los cambios mediante commits descriptivos.
-4. Subir la rama al repositorio remoto de GitHub.
-5. Crear un Pull Request para solicitar la integración de los cambios.
+1. Crear una rama para realizar una funcionalidad o modificación.
+2. Realizar los cambios correspondientes.
+3. Registrar los cambios mediante un commit.
+4. Subir la rama al repositorio remoto.
+5. Crear un Pull Request en GitHub.
 6. Revisar los cambios realizados.
-7. Integrar la rama mediante un merge hacia la rama `develop`.
-
-Este flujo permite mantener un historial de cambios y facilitar la colaboración entre los integrantes del equipo.
+7. Integrar los cambios mediante un merge hacia `develop`.
