@@ -9,3 +9,7 @@
 - **Por qué ocurrió:** El README.md tenía cambios divergentes entre develop y feature/pedidos al momento de integrarlas.
 - **Archivo afectado:** README.md
 - **Cómo se solucionó:** Se resolvió manualmente combinando ambas versiones y se registró con el commit de merge da94043 ("merge: resolver conflicto en README al integrar feature/pedidos").
+## Conflicto 3: README.md al integrar develop a main
+- **Por qué ocurrió:** Al fusionar develop en main, ambas ramas tenían versiones distintas de la misma zona del README.md (main aportaba las secciones "Control de versiones" y "Flujo de trabajo con Git y GitHub"; develop aportaba "Estructura del proyecto"), por lo que Git no pudo combinarlas automáticamente.
+- **Archivo afectado:** README.md
+- **Cómo se solucionó:** Se resolvió con el editor de merges de VS Code aceptando la combinación de ambas versiones (Accept Combination) para conservar las secciones de las dos ramas, y se registró con el commit de merge en main.
