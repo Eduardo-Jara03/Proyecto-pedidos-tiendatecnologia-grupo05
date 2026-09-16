@@ -47,3 +47,19 @@ El desarrollo del proyecto se realizará utilizando Git y GitHub como sistema de
 Git será utilizado para controlar las versiones del proyecto, registrar los cambios realizados por cada integrante y facilitar el trabajo colaborativo.
 
 GitHub será utilizado como repositorio remoto para almacenar el código fuente y permitir la integración de los cambios realizados por los integrantes del equipo.
+
+## Flujo de trabajo con Git y GitHub
+
+El desarrollo del proyecto se organiza mediante ramas para separar las funcionalidades y facilitar la integración de los cambios.
+
+El flujo de trabajo utilizado comprende las siguientes etapas:
+
+1. Crear una rama para desarrollar una funcionalidad o realizar una modificación.
+2. Realizar los cambios correspondientes en el proyecto.
+3. Registrar los cambios mediante commits descriptivos.
+4. Subir la rama al repositorio remoto de GitHub.
+5. Crear un Pull Request para solicitar la integración de los cambios.
+6. Revisar los cambios realizados.
+7. Integrar la rama mediante un merge hacia la rama `develop`.
+
+Este flujo permite mantener un historial de cambios y facilitar la colaboración entre los integrantes del equipo.
