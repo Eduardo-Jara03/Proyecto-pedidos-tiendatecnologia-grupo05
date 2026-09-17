@@ -70,3 +70,20 @@ Proyecto-pedidos-tiendatecnologia-grupo05/
 │   │   └── .gitkeep
 │   └── index.html
 └── README.md
+```
+
+Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
+
+## Flujo de trabajo con Git y GitHub
+
+El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
+
+### Proceso utilizado
+
+1. Crear una rama para realizar una funcionalidad o modificación.
+2. Realizar los cambios correspondientes.
+3. Registrar los cambios mediante un commit.
+4. Subir la rama al repositorio remoto.
+5. Crear un Pull Request en GitHub.
+6. Revisar los cambios realizados.
+7. Integrar los cambios mediante un merge hacia `develop`.
