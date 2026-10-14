@@ -1,0 +1,30 @@
+{
+  "name": "proyecto-pedidos-tiendatecnologia-grupo05",
+  "version": "1.0.0",
+  "description": "- Jara Moya, Eduardo Jesús — U21302190\r - Galvan Zamudio, Lisbert Wiliams — U22217814\r - Velasquez Pacheco, Nery Emerson — U23272063\r - Rivera Hipolito, Carlos Fernando — U23216154\r - Reyes Vicente, Bruno Santiago — U19221035",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node server/app.js",
+    "dev": "node --watch server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05/issues"
+  },
+  "homepage": "https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.3.0"
+  }
+}

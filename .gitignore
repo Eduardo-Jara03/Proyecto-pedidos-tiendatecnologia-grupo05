@@ -1,0 +1,19 @@
+﻿# Dependencias
+node_modules/
+
+# Variables de entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Base de datos local SQLite
+server/database/data/
+*.db
+*.db-wal
+*.db-shm
+
+# Cobertura y archivos temporales
+coverage/
+*.log
+.DS_Store
+Thumbs.db
