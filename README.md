@@ -1,4 +1,6 @@
-# Sistema de Gestión de Pedidos – Tienda de Tecnología
+# Sistema de Gestión de Pedidos — Tienda de Tecnología
+
+Aplicación web para gestionar clientes, productos y pedidos de una tienda de tecnología. El proyecto incluye frontend, API REST con Express y persistencia relacional SQLite.
 
 ## Integrantes
 
@@ -8,82 +10,90 @@
 - Rivera Hipolito, Carlos Fernando — U23216154
 - Reyes Vicente, Bruno Santiago — U19221035
 
-## Descripción del proyecto
+## Funcionalidades
 
-El proyecto consiste en desarrollar una aplicación web para gestionar clientes, productos y pedidos de una tienda de tecnología.
+- **Clientes:** registro, consulta, búsqueda, actualización, validación de correo y prevención de documentos duplicados.
+- **Productos:** registro, consulta, búsqueda, actualización, validación de precio/código y eliminación lógica.
+- **Pedidos:** creación transaccional con detalles, cálculo del total en el servidor, búsqueda, consulta, edición, cancelación y eliminación.
+- **Persistencia:** SQLite con claves foráneas, restricciones e índices.
+- **Frontend:** interfaz existente de TechStore; cuando se sirve desde Express consume la API. Si se abre directamente como archivo local o la API no está disponible, conserva el modo local basado en `localStorage`.
+- **Pruebas:** pruebas automatizadas de salud, clientes, productos, pedidos y validaciones.
 
-El sistema permite centralizar las operaciones principales de la tienda, facilitando el registro, consulta y administración de la información.
+## Requisitos
 
-El desarrollo utiliza Git y GitHub como sistema de control de versiones y repositorio remoto, permitiendo organizar el trabajo mediante ramas, commits, Pull Requests y fusiones hacia la rama `develop`.
+- Node.js 22 LTS recomendado.
+- npm.
+- Conexión a Internet durante la primera instalación de dependencias.
 
-## Funcionalidades principales
+`better-sqlite3` es un módulo nativo. npm normalmente descarga un binario precompilado compatible. Si intenta compilarlo desde código fuente, se necesita Python 3 y las herramientas de compilación de C/C++ correspondientes a la plataforma.
 
-### Módulo de clientes
+## Instalación y ejecución
 
-- Registrar clientes.
-- Validar información y evitar registros duplicados.
-- Listar clientes.
-- Mantener los registros mediante `localStorage`.
+Desde la raíz de esta **copia de recuperación**, las dependencias de `node_modules/` se incluyen para evitar repetir el fallo de instalación que se presentó en el equipo original. Primero ejecuta:
 
-### Módulo de productos
-
-- Registrar productos.
-- Validar códigos de producto duplicados.
-- Validar precios.
-- Listar productos.
-- Mantener los registros mediante `localStorage`.
-
-### Módulo de pedidos
-
-- Registrar pedidos.
-- Generar identificadores únicos de pedido.
-- Seleccionar clientes y productos registrados.
-- Registrar cantidades y precios.
-- Calcular el total del pedido.
-- Consultar pedidos.
-- Buscar pedidos por código, cliente o producto.
-- Editar pedidos.
-- Eliminar pedidos.
-- Mantener los registros mediante `localStorage`.
-
-## Tecnologías utilizadas
-
-- HTML
-- CSS
-- JavaScript
-- Git
-- GitHub
-- Visual Studio Code
-- localStorage
-
-## Organización del proyecto
-
-```text
-Proyecto-pedidos-tiendatecnologia-grupo05/
-├── docs/
-│   ├── evidencias-carlos.md
-│   └── resolucion-conflictos.md
-├── src/
-│   ├── css/
-│   │   └── estilos.css
-│   ├── js/
-│   │   └── .gitkeep
-│   └── index.html
-└── README.md
+```powershell
+npm.cmd test
+npm.cmd start
 ```
 
-Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
+Abrir `http://localhost:3000`. La comprobación de salud está en `http://localhost:3000/api/health`.
 
-## Flujo de trabajo con Git y GitHub
+Si se trabaja desde un clon limpio y no se incluye `node_modules/`, ejecutar `npm.cmd install` con conexión a Internet. La base de datos se crea automáticamente en `server/database/data/tiendatecnologia.db`. Para las pruebas se usa una base temporal aislada, sin modificar esa base local.
 
-El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
+## API REST
 
-### Proceso utilizado
+| Método | Endpoint | Descripción |
+|---|---|---|
+| GET | `/api/health` | Estado de API y SQLite |
+| GET, POST | `/api/clientes` | Listar/buscar y registrar clientes |
+| GET, PUT, DELETE | `/api/clientes/:id` | Consultar, actualizar o eliminar cliente |
+| GET, POST | `/api/productos` | Listar/buscar y registrar productos |
+| GET, PUT, DELETE | `/api/productos/:id` | Consultar, actualizar o desactivar producto |
+| GET, POST | `/api/pedidos` | Listar/buscar y registrar pedidos |
+| GET, PUT, DELETE | `/api/pedidos/:id` | Consultar, actualizar o eliminar pedido |
+| PATCH | `/api/pedidos/:id/cancelar` | Cancelar pedido registrado |
 
-1. Crear una rama para realizar una funcionalidad o modificación.
-2. Realizar los cambios correspondientes.
-3. Registrar los cambios mediante un commit.
-4. Subir la rama al repositorio remoto.
-5. Crear un Pull Request en GitHub.
-6. Revisar los cambios realizados.
-7. Integrar los cambios mediante un merge hacia `develop`.
+Los detalles de los endpoints, validaciones y códigos HTTP están en [`docs/api-rest.md`](docs/api-rest.md).
+
+## Estructura
+
+```text
+.
+├── docs/
+│   ├── api-rest.md
+│   ├── evidencias-carlos.md
+│   ├── incidencias.md
+│   ├── informe-avance-02.md
+│   ├── matriz-trazabilidad.md
+│   └── resolucion-conflictos.md
+├── server/
+│   ├── app.js
+│   ├── database/
+│   │   ├── connection.js
+│   │   ├── schema.sql
+│   │   └── verify.js
+│   └── routes/
+│       ├── clientes.js
+│       ├── pedidos.js
+│       └── productos.js
+├── src/
+│   ├── css/estilos.css
+│   └── index.html
+├── tests/api.test.js
+├── package.json
+└── package-lock.json
+```
+
+## Flujo de colaboración
+
+El repositorio usa ramas por funcionalidad/documentación, commits descriptivos y Pull Requests para revisión antes de integrar en `develop`. Las ramas e integraciones que aparecen en el historial se pueden comprobar en Git. No se deben presentar como aprobaciones formales los comentarios que no estén registrados como reviews de GitHub.
+
+## Estado de verificación de esta copia recuperada
+
+- Sintaxis comprobada en `server/app.js`, `server/routes/pedidos.js`, `tests/api.test.js` y el JavaScript incrustado en `src/index.html`.
+- Suite automatizada ejecutada: **30 pruebas aprobadas, 0 fallidas** en el entorno de verificación disponible.
+- Las evidencias externas del tablero, las revisiones reales de PR y la exposición deben adjuntarse desde las herramientas originales del equipo; no se fabrican capturas ni aprobaciones.
+
+## Entrega académica
+
+Consultar [`docs/informe-avance-02.md`](docs/informe-avance-02.md) para el resumen del avance, gestión del trabajo, trazabilidad, incidencias, resolución de conflictos y lista de evidencias que deben adjuntarse.

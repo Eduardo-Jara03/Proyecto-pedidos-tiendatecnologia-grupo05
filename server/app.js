@@ -1,9 +1,10 @@
-﻿const express = require("express");
+const express = require("express");
 const path = require("node:path");
 const db = require("./database/connection");
 
 const clientesRoutes = require("./routes/clientes");
 const productosRoutes = require("./routes/productos");
+const pedidosRoutes = require("./routes/pedidos");
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -13,6 +14,7 @@ app.use(express.json({ limit: "100kb" }));
 
 app.use("/api/clientes", clientesRoutes);
 app.use("/api/productos", productosRoutes);
+app.use("/api/pedidos", pedidosRoutes);
 
 app.get("/api/health", (req, res) => {
     try {

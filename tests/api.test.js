@@ -1,4 +1,4 @@
-﻿const { before, after, test } = require("node:test");
+const { before, after, test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const os = require("node:os");
@@ -304,5 +304,143 @@ test("API REST: salud, clientes, productos y validaciones", async (t) => {
         );
 
         assert.equal(response.status, 204);
+    });
+});
+
+
+test("API REST: gestión de pedidos y persistencia relacional", async (t) => {
+    let clienteId;
+    let productoId;
+    let pedidoId;
+
+    await t.test("prepara un cliente y un producto para el pedido", async () => {
+        const cliente = await request(
+            "/api/clientes",
+            json("POST", {
+                nombre: "Cliente Pedidos",
+                documento: "TEST-PEDIDOS-001",
+                correo: "pedidos.test@example.com"
+            })
+        );
+        assert.equal(cliente.status, 201);
+        clienteId = cliente.body.id;
+
+        const producto = await request(
+            "/api/productos",
+            json("POST", {
+                codigo: "TEST-PEDIDOS-001",
+                nombre: "Producto para pedido",
+                precio: 25.50
+            })
+        );
+        assert.equal(producto.status, 201);
+        productoId = producto.body.id;
+    });
+
+    await t.test("rechaza pedidos sin detalles", async () => {
+        const response = await request(
+            "/api/pedidos",
+            json("POST", { cliente_id: clienteId, detalles: [] })
+        );
+        assert.equal(response.status, 400);
+    });
+
+    await t.test("rechaza cantidades no enteras o no positivas", async () => {
+        for (const cantidad of [0, -1, 1.5, "2"]) {
+            const response = await request(
+                "/api/pedidos",
+                json("POST", {
+                    cliente_id: clienteId,
+                    detalles: [{ producto_id: productoId, cantidad }]
+                })
+            );
+            assert.equal(response.status, 400);
+        }
+    });
+
+    await t.test("rechaza un cliente inexistente", async () => {
+        const response = await request(
+            "/api/pedidos",
+            json("POST", {
+                cliente_id: 999999,
+                detalles: [{ producto_id: productoId, cantidad: 1 }]
+            })
+        );
+        assert.equal(response.status, 400);
+    });
+
+    await t.test("crea pedido con detalle y calcula el total en el servidor", async () => {
+        const response = await request(
+            "/api/pedidos",
+            json("POST", {
+                cliente_id: clienteId,
+                detalles: [
+                    { producto_id: productoId, cantidad: 2 },
+                    { producto_id: productoId, cantidad: 1 }
+                ]
+            })
+        );
+
+        assert.equal(response.status, 201);
+        assert.match(response.body.codigo, /^PED-/);
+        assert.equal(response.body.cliente_id, clienteId);
+        assert.equal(response.body.estado, "REGISTRADO");
+        assert.equal(response.body.total, 76.5);
+        assert.equal(response.body.detalles.length, 1);
+        assert.equal(response.body.detalles[0].cantidad, 3);
+        assert.equal(response.body.detalles[0].subtotal, 76.5);
+        pedidoId = response.body.id;
+    });
+
+    await t.test("actualiza un pedido registrado", async () => {
+        const response = await request(
+            `/api/pedidos/${pedidoId}`,
+            json("PUT", {
+                cliente_id: clienteId,
+                detalles: [{ producto_id: productoId, cantidad: 4 }]
+            })
+        );
+        assert.equal(response.status, 200);
+        assert.equal(response.body.total, 102);
+        assert.equal(response.body.detalles[0].cantidad, 4);
+    });
+
+    await t.test("consulta el pedido y lo encuentra mediante búsqueda", async () => {
+        const detalle = await request(`/api/pedidos/${pedidoId}`);
+        assert.equal(detalle.status, 200);
+        assert.equal(detalle.body.id, pedidoId);
+        assert.equal(detalle.body.detalles[0].producto, "Producto para pedido");
+        assert.equal(detalle.body.detalles[0].cantidad, 4);
+
+        const busqueda = await request("/api/pedidos?q=TEST-PEDIDOS-001");
+        assert.equal(busqueda.status, 200);
+        assert.ok(busqueda.body.some((pedido) => pedido.id === pedidoId));
+    });
+
+    await t.test("cancela un pedido y evita cancelarlo dos veces", async () => {
+        const cancelado = await request(
+            `/api/pedidos/${pedidoId}/cancelar`,
+            { method: "PATCH" }
+        );
+        assert.equal(cancelado.status, 200);
+        assert.equal(cancelado.body.estado, "CANCELADO");
+
+        const repetido = await request(
+            `/api/pedidos/${pedidoId}/cancelar`,
+            { method: "PATCH" }
+        );
+        assert.equal(repetido.status, 409);
+    });
+
+    await t.test("elimina un pedido y devuelve 404 al volver a consultarlo", async () => {
+        const deletion = await request(`/api/pedidos/${pedidoId}`, { method: "DELETE" });
+        assert.equal(deletion.status, 204);
+        const missing = await request(`/api/pedidos/${pedidoId}`);
+        assert.equal(missing.status, 404);
+    });
+
+    await t.test("responde con 404 para un pedido inexistente", async () => {
+        const response = await request("/api/pedidos/999999");
+        assert.equal(response.status, 404);
     });
 });

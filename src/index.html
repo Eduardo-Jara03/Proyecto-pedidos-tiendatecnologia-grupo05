@@ -528,6 +528,105 @@
 
         let pedidoEditando = null;
 
+        async function apiRequest(url, options = {}) {
+            const response = await fetch(url, {
+                ...options,
+                headers: {
+                    ...(options.body ? { "Content-Type": "application/json" } : {}),
+                    ...options.headers
+                }
+            });
+            const text = await response.text();
+            const data = text ? JSON.parse(text) : null;
+            if (!response.ok) {
+                const error = new Error(data?.error || `Error HTTP ${response.status}`);
+                error.status = response.status;
+                throw error;
+            }
+            return data;
+        }
+
+        function pedidoDesdeApi(pedido) {
+            const detalles = pedido.detalles || [];
+            return {
+                id: pedido.id,
+                codigo: pedido.codigo,
+                cliente: pedido.cliente,
+                producto: detalles.length
+                    ? detalles.map((detalle) => detalle.producto).join(", ")
+                    : (pedido.producto || ""),
+                cantidad: detalles.length
+                    ? detalles.reduce((suma, detalle) => suma + detalle.cantidad, 0)
+                    : (pedido.cantidad || 0),
+                precio: detalles.length ? detalles[0].precio_unitario : (pedido.precio || 0),
+                total: Number(pedido.total),
+                estado: pedido.estado
+            };
+        }
+
+        async function sincronizarConApi() {
+            try {
+                let [clientesApi, productosApi, pedidosApi] = await Promise.all([
+                    apiRequest("/api/clientes"),
+                    apiRequest("/api/productos"),
+                    apiRequest("/api/pedidos")
+                ]);
+
+                // Migrar registros locales antiguos solo cuando no existen en SQLite.
+                for (const cliente of clientes) {
+                    if (!clientesApi.some((item) => item.documento === cliente.documento)) {
+                        const creado = await apiRequest("/api/clientes", {
+                            method: "POST", body: JSON.stringify(cliente)
+                        });
+                        clientesApi.push(creado);
+                    }
+                }
+                for (const producto of productos) {
+                    if (!productosApi.some((item) => item.codigo === producto.codigo)) {
+                        const creado = await apiRequest("/api/productos", {
+                            method: "POST", body: JSON.stringify(producto)
+                        });
+                        productosApi.push(creado);
+                    }
+                }
+                if (pedidosApi.length === 0) {
+                    for (const pedido of pedidos) {
+                        const cliente = clientesApi.find((item) => item.nombre === pedido.cliente);
+                        const producto = productosApi.find((item) => item.nombre === pedido.producto && item.activo === 1);
+                        if (cliente && producto && Number.isSafeInteger(Number(pedido.cantidad)) && Number(pedido.cantidad) > 0) {
+                            await apiRequest("/api/pedidos", {
+                                method: "POST",
+                                body: JSON.stringify({
+                                    cliente_id: cliente.id,
+                                    detalles: [{ producto_id: producto.id, cantidad: Number(pedido.cantidad) }]
+                                })
+                            });
+                        }
+                    }
+                }
+
+                [clientesApi, productosApi, pedidosApi] = await Promise.all([
+                    apiRequest("/api/clientes"),
+                    apiRequest("/api/productos"),
+                    apiRequest("/api/pedidos")
+                ]);
+                clientes = clientesApi;
+                productos = productosApi;
+                pedidos = pedidosApi.map(pedidoDesdeApi);
+                localStorage.setItem("clientes", JSON.stringify(clientes));
+                localStorage.setItem("productos", JSON.stringify(productos));
+                localStorage.setItem("pedidos", JSON.stringify(pedidos));
+                mostrarClientes();
+                mostrarProductos();
+                mostrarPedidos();
+                actualizarClientesPedido();
+                actualizarProductosPedido();
+                actualizarResumenSistema();
+            } catch (error) {
+                // Permite seguir usando el modo local si se abre index.html sin el servidor.
+                console.warn("API no disponible; se conserva el almacenamiento local.", error.message);
+            }
+        }
 
         // ELEMENTOS DEL DOM
 
@@ -626,7 +725,7 @@
 
         formularioCliente.addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
@@ -683,7 +782,18 @@
                 };
 
 
-                clientes.push(cliente);
+                let clienteGuardado = cliente;
+                try {
+                    clienteGuardado = await apiRequest("/api/clientes", {
+                        method: "POST", body: JSON.stringify(cliente)
+                    });
+                } catch (error) {
+                    if (error.status) {
+                        mostrarMensajeCliente(error.message);
+                        return;
+                    }
+                }
+                clientes.push(clienteGuardado);
 
 
                 guardarClientes();
@@ -755,7 +865,7 @@
 
         formularioProducto.addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
@@ -823,7 +933,18 @@
                 };
 
 
-                productos.push(producto);
+                let productoGuardado = producto;
+                try {
+                    productoGuardado = await apiRequest("/api/productos", {
+                        method: "POST", body: JSON.stringify(producto)
+                    });
+                } catch (error) {
+                    if (error.status) {
+                        mostrarMensajeProducto(error.message);
+                        return;
+                    }
+                }
+                productos.push(productoGuardado);
 
 
                 guardarProductos();
@@ -1075,7 +1196,7 @@
 
         formularioPedido.addEventListener(
             "submit",
-            function (event) {
+            async function (event) {
 
                 event.preventDefault();
 
@@ -1144,28 +1265,33 @@
                 // ACTUALIZAR PEDIDO
 
                 if (pedidoEditando !== null) {
-
-                    pedidos[pedidoEditando] = {
-
-                        codigo:
-                            pedidos[pedidoEditando].codigo,
-
-                        cliente:
-                            cliente.nombre,
-
-                        producto:
-                            producto.nombre,
-
-                        cantidad:
-                            cantidad,
-
-                        precio:
-                            Number(producto.precio),
-
-                        total:
-                            total
-
+                    const pedidoAnterior = pedidos[pedidoEditando];
+                    let pedidoActualizado = {
+                        ...pedidoAnterior,
+                        cliente: cliente.nombre,
+                        producto: producto.nombre,
+                        cantidad,
+                        precio: Number(producto.precio),
+                        total
                     };
+                    if (pedidoAnterior.id && cliente.id && producto.id) {
+                        try {
+                            const actualizado = await apiRequest(`/api/pedidos/${pedidoAnterior.id}`, {
+                                method: "PUT",
+                                body: JSON.stringify({
+                                    cliente_id: cliente.id,
+                                    detalles: [{ producto_id: producto.id, cantidad }]
+                                })
+                            });
+                            pedidoActualizado = pedidoDesdeApi(actualizado);
+                        } catch (error) {
+                            if (error.status) {
+                                mostrarMensaje(error.message);
+                                return;
+                            }
+                        }
+                    }
+                    pedidos[pedidoEditando] = pedidoActualizado;
 
 
                     guardarPedidos();
@@ -1190,28 +1316,31 @@
                 // REGISTRAR NUEVO PEDIDO
                 // ==========================================
 
-                const pedido = {
-
-                    codigo:
-                        generarCodigoPedido(),
-
-                    cliente:
-                        cliente.nombre,
-
-                    producto:
-                        producto.nombre,
-
-                    cantidad:
-                        cantidad,
-
-                    precio:
-                        Number(producto.precio),
-
-                    total:
-                        total
-
+                let pedido = {
+                    codigo: generarCodigoPedido(),
+                    cliente: cliente.nombre,
+                    producto: producto.nombre,
+                    cantidad,
+                    precio: Number(producto.precio),
+                    total
                 };
-
+                if (cliente.id && producto.id) {
+                    try {
+                        const creado = await apiRequest("/api/pedidos", {
+                            method: "POST",
+                            body: JSON.stringify({
+                                cliente_id: cliente.id,
+                                detalles: [{ producto_id: producto.id, cantidad }]
+                            })
+                        });
+                        pedido = pedidoDesdeApi(creado);
+                    } catch (error) {
+                        if (error.status) {
+                            mostrarMensaje(error.message);
+                            return;
+                        }
+                    }
+                }
 
                 pedidos.push(pedido);
 
@@ -1636,7 +1765,7 @@
 
         // ELIMINAR PEDIDO
 
-        function eliminarPedido(index) {
+        async function eliminarPedido(index) {
 
             const confirmar =
                 confirm(
@@ -1651,6 +1780,17 @@
             }
 
 
+            const pedido = pedidos[index];
+            if (pedido?.id) {
+                try {
+                    await apiRequest(`/api/pedidos/${pedido.id}`, { method: "DELETE" });
+                } catch (error) {
+                    if (error.status) {
+                        mostrarMensaje(error.message);
+                        return;
+                    }
+                }
+            }
             pedidos.splice(index, 1);
 
 
@@ -1861,6 +2001,7 @@
         actualizarCodigoPedido();
 
         actualizarResumenSistema();
+        sincronizarConApi();
 
     </script>
 
