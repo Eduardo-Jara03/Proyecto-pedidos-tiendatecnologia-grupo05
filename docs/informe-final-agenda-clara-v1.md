@@ -83,7 +83,9 @@ Rutas principales documentadas en `README.md`:
 
 En el entorno de preparación se ejecutó `npm test`: **20 pruebas aprobadas, 0 fallidas**. Las pruebas cubren salud de API/SQLite, registro y modificación de clientes, validaciones, servicios, registro y consulta de reservas, asociación entre entidades y cancelación.
 
-**Pendiente de validación por el equipo:** ejecutar `npm test` en el Windows usado para la entrega, conservar la salida de consola y probar manualmente los flujos principales desde el navegador. El resultado del entorno de preparación no debe presentarse como si fuera una captura obtenida en el equipo del estudiante.
+**Validación en Windows:** se ejecutó `npm.cmd test` en el entorno local del proyecto y se obtuvieron 20 pruebas aprobadas, 0 fallidas, 0 canceladas y 0 omitidas. La evidencia de las pruebas automatizadas está registrada en `docs/evidencias/pruebas-automatizadas.png`.
+
+**Validación manual:** se confirmó en el navegador el registro de clientes, el registro de servicios, el registro de reservas y la cancelación de reservas. Estos resultados están documentados en `docs/validacion-manual-v1.md`. No se afirma que existan capturas individuales de cada flujo.
 
 ## 8. Trabajo colaborativo y responsabilidades
 
@@ -105,9 +107,11 @@ Procedimiento propuesto:
 
 ## 10. Gestión de conflictos
 
-La evaluación solicita al menos un conflicto originado por el trabajo simultáneo. El conflicto debe reproducirse de forma real, resolverse y documentarse con el origen, archivos involucrados, decisión adoptada y resultado final.
+Se reprodujo un conflicto real de contenido de Git al integrar la rama `evidencia/conflicto-a` en `evidencia/conflicto-b`. Ambas ramas modificaron la misma línea de `docs/prueba-conflicto-git.txt`; Git detuvo la integración automática y requirió una resolución manual.
 
-El archivo `docs/conflicto-git-plantilla.md` es una plantilla de registro, no prueba de que un conflicto ya haya ocurrido. Debe completarse después de una resolución real y adjuntar evidencia de Git o captura.
+El conflicto se resolvió integrando los dos objetivos en una única línea. El procedimiento y sus limitaciones están registrados en `docs/resolucion-conflictos.md`. Los commits de preparación, variantes, resolución y documentación se identifican en ese archivo.
+
+**Alcance de la evidencia:** el conflicto ocurrió en un archivo de prueba de Git, no en el código funcional de clientes, servicios o reservas. La participación de otro integrante no se considera demostrada sin evidencia adicional.
 
 ## 11. Gestión de versiones y liberación
 
@@ -129,10 +133,10 @@ La matriz debe incluir para cada requisito su código, tarea, responsable real, 
 - [ ] Publicar las ramas que se hayan acordado para la adaptación.
 - [ ] Crear y compartir el tablero con los cinco estados.
 - [ ] Completar responsables y prioridades de las actividades.
-- [ ] Ejecutar `npm test` en Windows y guardar evidencia.
-- [ ] Probar manualmente clientes, servicios y reservas en navegador.
-- [ ] Adjuntar una Pull Request con revisión auténtica previa a la integración.
-- [ ] Reproducir, resolver y documentar un conflicto real.
+- [x] Ejecutar las pruebas automatizadas en Windows: 20 aprobadas y 0 fallidas; evidencia en `docs/evidencias/pruebas-automatizadas.png`.
+- [x] Validar manualmente en navegador el registro de clientes, servicios y reservas, y la cancelación de reservas; resultados en `docs/validacion-manual-v1.md`.
+- [ ] Obtener una revisión auténtica de un integrante distinto al autor en el Pull Request.
+- [x] Reproducir, resolver y documentar un conflicto real de contenido de Git; alcance y limitaciones en `docs/resolucion-conflictos.md`.
 - [ ] Integrar y verificar la V1.
 - [ ] Crear el tag de versión estable después de validar.
 - [ ] Incorporar capturas y enlaces reales en el PDF definitivo.
