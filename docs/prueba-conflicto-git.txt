@@ -1,1 +1,1 @@
-Estado inicial: archivo de prueba para demostrar un conflicto.
+Cambio B: gestion de reservas y horarios.
