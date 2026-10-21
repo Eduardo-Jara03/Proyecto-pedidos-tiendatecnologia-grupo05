@@ -1,0 +1,15 @@
+ID,Actividad,Requerimiento,Responsable propuesto,Prioridad,Estado inicial,Entrega/Evidencia
+ACT-01,Validar y adaptar gestión de clientes,RF01-RF03,Por asignar,Alta,Hecho en código pendiente de validar en repo,server/routes/clientes.js; pruebas API
+ACT-02,Implementar catálogo de servicios con precio y duración,RF04-RF06,Por asignar,Alta,Hecho en código pendiente de validar en repo,server/routes/servicios.js; tests
+ACT-03,Implementar registro consulta y cancelación de reservas,RF07-RF10,Por asignar,Alta,Hecho en código pendiente de validar en repo,server/routes/reservas.js; tests
+ACT-04,Construir interfaz web de los tres módulos,RF01-RF10,Por asignar,Alta,En revisión,src/index.html; src/css/estilos.css; falta prueba manual
+ACT-05,Ejecutar pruebas automatizadas en Windows,RF01-RF10,Por asignar,Alta,Seleccionado,Salida npm test en el equipo del estudiante
+ACT-06,Revisar PR de adaptación antes de integración,RF01-RF10,Revisor distinto al autor,Alta,Pendiente,URL de PR y revisión real de compañero
+ACT-07,Configurar tablero GitHub Projects con cinco estados,Gestión colaborativa,Por asignar,Alta,Pendiente,URL y captura del tablero real
+ACT-08,Completar trazabilidad con enlaces reales,RF01-RF10,Por asignar,Alta,En progreso,docs/requerimientos-trazabilidad.md y enlaces a issues/PR
+ACT-09,Realizar y documentar un conflicto Git real,Gestión de conflictos,Dos integrantes,Alta,Pendiente,docs/conflicto-git-plantilla.md más captura/commit real
+ACT-10,Integrar funcionalidades verificadas a develop,Integración,Revisor/equipo,Alta,Pendiente,PR aprobada y commit de integración
+ACT-11,Preparar versión estable v1.0.0,Gestión de versiones,Equipo,Alta,Pendiente,Tag y evidencia real en GitHub
+ACT-12,Definir recordatorios automáticos para V2,RF11,Por asignar,Baja,Pendiente,Backlog
+ACT-13,Definir reportes y dashboard para V2,RF12-RF13,Por asignar,Baja,Pendiente,Backlog
+ACT-14,Evaluar pagos en línea e historial ampliado para V2,RF14-RF15,Por asignar,Baja,Pendiente,Backlog
