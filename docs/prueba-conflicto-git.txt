@@ -1,1 +1,1 @@
-Cambio B: gestion de reservas y horarios.
+Resolucion: se integran la gestion de clientes y servicios con la gestion de reservas y horarios.
