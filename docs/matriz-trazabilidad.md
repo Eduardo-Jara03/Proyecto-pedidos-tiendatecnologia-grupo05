@@ -30,3 +30,18 @@
 - PR con revisión de un integrante distinto al autor.
 - Evidencia real del conflicto y su resolución.
 - Tag de versión estable y enlace al commit de liberación.
+
+## Referencias verificadas del desarrollo
+
+- Repositorio remoto: https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05
+- Rama de adaptación: `feature/adaptacion-servicios-reservas`
+- Commit de implementación: `26d1fc6` — adaptación de clientes, servicios y reservas.
+- Commit de documentación: `373219f` — requisitos, trazabilidad y versionado.
+- Commit de evidencia automatizada: `1bbd6b6` — captura de 20 pruebas aprobadas.
+- Commit de actualización del tablero CSV: `540f580`.
+- Commit de validación manual: `cfe7465`.
+- Pull Request: https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05/pulls
+
+### Estado de revisión e integración
+
+La rama de adaptación está publicada en el repositorio remoto. La revisión por una persona distinta al autor, la aprobación del Pull Request y el commit de integración en `develop` deben registrarse cuando se produzcan. No se consideran completados por la existencia de la rama o de esta matriz.
