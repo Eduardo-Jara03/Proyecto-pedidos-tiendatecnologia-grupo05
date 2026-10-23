@@ -1,47 +1,39 @@
-# Matriz de trazabilidad — Agenda Clara V1
+﻿# Matriz de trazabilidad — Agenda Clara V1
 
-> Esta matriz identifica artefactos técnicos implementados en la propuesta de adaptación. Los responsables, revisores, enlaces de issues/PR y commit de integración deben completarse con datos reales del repositorio compartido.
+Esta matriz relaciona los requisitos funcionales con los Issues, el desarrollo, las pruebas y la revisión.
 
-| Req. | Actividad | Responsable | Desarrollo | Revisión | Integración |
+## Requisitos de la versión 1
+
+| Requisito | Descripción | Issue | Responsable de desarrollo | Implementación | Revisión |
 |---|---|---|---|---|---|
-| RF01 | Formulario y alta de clientes | Por asignar | `server/routes/clientes.js`; formulario `#clienteForm` | Pendiente de PR real | Pendiente |
-| RF02 | Modificación de clientes | Por asignar | `PUT /api/clientes/:id`; edición desde tabla | Pendiente de PR real | Pendiente |
-| RF03 | Consulta/búsqueda de clientes | Por asignar | `GET /api/clientes` y búsqueda UI | Pendiente de PR real | Pendiente |
-| RF04 | Alta de servicios | Por asignar | `POST /api/servicios`; `server/routes/servicios.js` | Pendiente de PR real | Pendiente |
-| RF05 | Precio y duración | Por asignar | Tabla `servicios` y validaciones | Pendiente de PR real | Pendiente |
-| RF06 | Consulta de servicios | Por asignar | `GET /api/servicios`; catálogo UI | Pendiente de PR real | Pendiente |
-| RF07 | Registrar reserva con cliente y servicio | Por asignar | `POST /api/reservas`; FK a cliente/servicio | Pendiente de PR real | Pendiente |
-| RF08 | Fecha y hora | Por asignar | `reservas.fecha_hora` y validación | Pendiente de PR real | Pendiente |
-| RF09 | Consultar reservas | Por asignar | `GET /api/reservas`, filtros y búsqueda | Pendiente de PR real | Pendiente |
-| RF10 | Cancelar reserva | Por asignar | `PATCH /api/reservas/:id/cancelar` | Pendiente de PR real | Pendiente |
+| RF01 | Registrar clientes | #7 | Bruno | `server/routes/clientes.js` | PR #6, pendiente de aprobación |
+| RF02 | Modificar clientes | #7 | Bruno | `server/routes/clientes.js` | PR #6, pendiente de aprobación |
+| RF03 | Consultar y buscar clientes | #7 | Bruno | API de clientes e interfaz | PR #6, pendiente de aprobación |
+| RF04 | Registrar servicios | #8 | Bruno | `server/routes/servicios.js` | PR #6, pendiente de aprobación |
+| RF05 | Definir precio y duración | #8 | Bruno | Servicios y SQLite | PR #6, pendiente de aprobación |
+| RF06 | Consultar servicios | #8 | Bruno | API de servicios e interfaz | PR #6, pendiente de aprobación |
+| RF07 | Registrar reservas | #9 | Bruno | `server/routes/reservas.js` | PR #6, pendiente de aprobación |
+| RF08 | Seleccionar cliente y servicio | #9 | Bruno | Reservas e interfaz | PR #6, pendiente de aprobación |
+| RF09 | Registrar fecha y hora | #9 | Bruno | Reservas y validaciones | PR #6, pendiente de aprobación |
+| RF10 | Consultar reservas | #10 | Bruno | API de reservas e interfaz | PR #6, pendiente de aprobación |
+| RF11 | Cancelar reservas | #10 | Bruno | API de reservas | PR #6, pendiente de aprobación |
 
-## Requerimientos de versiones posteriores
+## Requisitos de versiones futuras
 
-- RF11: recordatorios automáticos.
-- RF12: reportes.
-- RF13: dashboard de indicadores.
-- RF14: pagos en línea.
-- RF15: historial ampliado de clientes.
+| Requisito | Descripción | Issue | Estado |
+|---|---|---|---|
+| RF12 | Recordatorios automáticos | #15 | Pendiente |
+| RF13 | Generación de reportes | #16 | Pendiente |
+| RF14 | Dashboard de indicadores | #17 | Pendiente |
+| RF15 | Pagos en línea | #18 | Pendiente |
+| RF16 | Historial ampliado de clientes | #19 | Pendiente |
 
-## Evidencias por incorporar
+## Evidencias de verificación
 
-- Enlaces a issues/actividades del tablero real.
-- Enlaces a ramas y commits publicados.
-- PR con revisión de un integrante distinto al autor.
-- Evidencia real del conflicto y su resolución.
-- Tag de versión estable y enlace al commit de liberación.
-
-## Referencias verificadas del desarrollo
-
-- Repositorio remoto: https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05
-- Rama de adaptación: `feature/adaptacion-servicios-reservas`
-- Commit de implementación: `26d1fc6` — adaptación de clientes, servicios y reservas.
-- Commit de documentación: `373219f` — requisitos, trazabilidad y versionado.
-- Commit de evidencia automatizada: `1bbd6b6` — captura de 20 pruebas aprobadas.
-- Commit de actualización del tablero CSV: `540f580`.
-- Commit de validación manual: `cfe7465`.
-- Pull Request: https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05/pulls
-
-### Estado de revisión e integración
-
-La rama de adaptación está publicada en el repositorio remoto. La revisión por una persona distinta al autor, la aprobación del Pull Request y el commit de integración en `develop` deben registrarse cuando se produzcan. No se consideran completados por la existencia de la rama o de esta matriz.
+- Desarrollo: PR #6, rama `feature/adaptacion-servicios-reservas`.
+- Revisión técnica: William, registrada en PR #6.
+- Pruebas automatizadas: 20 de 20 aprobadas localmente en la rama del PR #6.
+- Validación manual: clientes, servicios, reservas y `/api/health`.
+- Integración a `develop`: pendiente de aprobación y fusión del PR #6.
+- Validación posterior a la integración: pendiente.
+- Versión estable `v1.0.0`: pendiente.
