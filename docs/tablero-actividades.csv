@@ -1,0 +1,15 @@
+﻿ID,Actividad,Requerimiento,Responsable propuesto,Prioridad,Estado inicial,Entrega/Evidencia
+ACT-01,Validar y adaptar gestión de clientes,RF01-RF03,Por asignar,Alta,Hecho,server/routes/clientes.js; pruebas automatizadas aprobadas
+ACT-02,Implementar catálogo de servicios con precio y duración,RF04-RF06,Por asignar,Alta,Hecho,server/routes/servicios.js; pruebas automatizadas aprobadas
+ACT-03,Implementar registro consulta y cancelación de reservas,RF07-RF10,Por asignar,Alta,Hecho,server/routes/reservas.js; pruebas automatizadas aprobadas
+ACT-04,Construir y verificar la interfaz web de los tres módulos,RF01-RF10,Por asignar,Alta,En revisión,src/index.html; src/css/estilos.css; falta completar la verificación manual
+ACT-05,Ejecutar pruebas automatizadas en Windows,RF01-RF10,Bruno Reyes,Alta,Hecho,20 pruebas aprobadas; docs/evidencias/pruebas-automatizadas.png
+ACT-06,Revisar PR de adaptación antes de integración,RF01-RF10,Revisor distinto al autor,Alta,Pendiente,URL del PR; falta revisión real de un compañero
+ACT-07,Configurar tablero GitHub Projects con cinco estados,Gestión colaborativa,Por asignar,Alta,Pendiente,URL y captura del tablero real pendientes
+ACT-08,Completar trazabilidad con enlaces reales,RF01-RF10,Por asignar,Alta,En progreso,docs/requerimientos-trazabilidad.md; falta verificar enlaces a issues y PR
+ACT-09,Reproducir y documentar un conflicto Git real,Gestión de conflictos,Bruno Reyes; falta confirmar participación de otro integrante,Alta,Hecho,docs/resolucion-conflictos.md; commits de resolución y documentación en evidencia/conflicto-b
+ACT-10,Integrar funcionalidades verificadas a develop,Integración,Revisor/equipo,Alta,Pendiente,PR aprobada y commit de integración pendientes
+ACT-11,Preparar versión estable v1.0.0,Gestión de versiones,Equipo,Alta,Pendiente,Tag y evidencia de publicación pendientes
+ACT-12,Definir recordatorios automáticos para V2,RF11,Por asignar,Baja,Pendiente,Backlog V2
+ACT-13,Definir reportes y dashboard para V2,RF12-RF13,Por asignar,Baja,Pendiente,Backlog V2
+ACT-14,Evaluar pagos en línea e historial ampliado para V2,RF14-RF15,Por asignar,Baja,Pendiente,Backlog V2

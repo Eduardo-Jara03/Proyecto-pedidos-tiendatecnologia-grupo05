@@ -1,0 +1,30 @@
+{
+  "name": "agenda-clara-gestion-reservas",
+  "version": "1.0.0",
+  "description": "Sistema web para gestionar clientes, servicios y reservas; proyecto colaborativo de la V1.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node server/app.js",
+    "dev": "node --watch server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05/issues"
+  },
+  "homepage": "https://github.com/Eduardo-Jara03/Proyecto-pedidos-tiendatecnologia-grupo05#readme",
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "express": "^5.3.0"
+  }
+}

@@ -1,15 +1,44 @@
-# Evidencia 5: Generación y resolución de conflictos
+# Gestión de conflictos — Agenda Clara
 
-## Conflicto 1: README.md entre develop y feature/pedidos
-- **Por qué ocurrió:** Dos ramas modificaron al mismo tiempo la misma sección del README.md (commits 765bd25 en develop y 6316aba en feature/pedidos), por lo que Git no pudo fusionarlas automáticamente.
-- **Archivo afectado:** README.md
-- **Cómo se solucionó:** Se identificaron las marcas de conflicto (<<<<<<<, =======, >>>>>>>), se compararon ambas versiones, se conservó el contenido combinado correcto, se ejecutó `git add README.md` y se registró la resolución con el commit de merge 5710faa.
+## Objetivo
 
-## Conflicto 2: README.md al integrar feature/pedidos a develop
-- **Por qué ocurrió:** El README.md tenía cambios divergentes entre develop y feature/pedidos al momento de integrarlas.
-- **Archivo afectado:** README.md
-- **Cómo se solucionó:** Se resolvió manualmente combinando ambas versiones y se registró con el commit de merge da94043 ("merge: resolver conflicto en README al integrar feature/pedidos").
-## Conflicto 3: README.md al integrar develop a main
-- **Por qué ocurrió:** Al fusionar develop en main, ambas ramas tenían versiones distintas de la misma zona del README.md (main aportaba las secciones "Control de versiones" y "Flujo de trabajo con Git y GitHub"; develop aportaba "Estructura del proyecto"), por lo que Git no pudo combinarlas automáticamente.
-- **Archivo afectado:** README.md
-- **Cómo se solucionó:** Se resolvió con el editor de merges de VS Code aceptando la combinación de ambas versiones (Accept Combination) para conservar las secciones de las dos ramas, y se registró con el commit de merge en main.
+Registrar la reproducción, resolución y verificación de un conflicto de contenido de Git durante la preparación de la entrega.
+
+## Ramas involucradas
+
+- `evidencia/conflicto-base`: archivo inicial para reproducir el caso.
+- `evidencia/conflicto-a`: primera variante del contenido.
+- `evidencia/conflicto-b`: segunda variante y rama donde se resolvió el conflicto.
+
+## Origen del conflicto
+
+Las ramas A y B modificaron la misma línea del archivo `docs/prueba-conflicto-git.txt` con contenidos diferentes.
+
+Al integrar la rama A en la rama B, Git informó:
+
+`CONFLICT (content): Merge conflict in docs/prueba-conflicto-git.txt`
+
+La integración automática se detuvo y fue necesaria una resolución manual.
+
+## Resolución aplicada
+
+Se integraron ambos objetivos en una única línea:
+
+`Resolucion: se integran la gestion de clientes y servicios con la gestion de reservas y horarios.`
+
+La decisión permitió conservar el propósito de ambas variantes sin mantener los marcadores de conflicto de Git.
+
+## Verificación y evidencia
+
+- Preparación del archivo: commit `82f49bd`.
+- Primera variante: commit `685d535`.
+- Segunda variante: commit `2e25c5f`.
+- Resolución del conflicto: commit `75f39c3`.
+- Documentación del caso: commit `283520c`.
+- Rama publicada con la resolución: `evidencia/conflicto-b`.
+
+Este conflicto demuestra una resolución real de Git sobre un archivo de evidencia. No debe describirse como un conflicto surgido en el código funcional de clientes, servicios o reservas.
+
+## Alcance y limitaciones
+
+El caso documenta el procedimiento técnico de conflicto, las ramas involucradas y la decisión adoptada. La participación de otro integrante debe confirmarse con evidencia real; no se atribuyen revisiones ni contribuciones que no estén verificadas.

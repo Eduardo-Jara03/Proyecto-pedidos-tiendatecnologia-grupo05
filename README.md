@@ -1,88 +1,62 @@
-# Sistema de Gestión de Pedidos – Tienda de Tecnología
+# Agenda Clara — Gestión de clientes, servicios y reservas
 
-## Integrantes
+Sistema web de primera versión para una empresa de servicios que necesita centralizar las reservas que actualmente administra por llamadas, WhatsApp y hojas de cálculo.
 
-- Jara Moya, Eduardo Jesús — U21302190
-- Galvan Zamudio, Lisbert Wiliams — U22217814
-- Rivera Hipolito, Carlos Fernando — U23216154
-- Reyes Vicente, Bruno Santiago — U19221035
+## Alcance de la V1
 
-## Descripción del proyecto
+- **Clientes:** registrar, consultar, buscar y modificar datos.
+- **Servicios:** registrar y consultar servicios, definir precio y duración, editar y activar/desactivar servicios.
+- **Reservas:** registrar una reserva asociando cliente y servicio, indicar fecha y hora, consultar/buscar y cancelar.
+- **Persistencia:** SQLite con claves foráneas e índices.
+- **API REST:** endpoints separados por módulo.
+- **Pruebas automatizadas:** `node --test`.
 
-El proyecto consiste en desarrollar una aplicación web para gestionar clientes, productos y pedidos de una tienda de tecnología.
+Quedan para versiones posteriores: recordatorios automáticos, reportes, dashboard de indicadores, pagos en línea e historial ampliado de clientes.
 
-El sistema permite centralizar las operaciones principales de la tienda, facilitando el registro, consulta y administración de la información.
+## Requisitos
 
-El desarrollo utiliza Git y GitHub como sistema de control de versiones y repositorio remoto, permitiendo organizar el trabajo mediante ramas, commits, Pull Requests y fusiones hacia la rama `develop`.
+- Node.js 20 o una versión compatible con las dependencias del proyecto.
+- npm.
 
-## Funcionalidades principales
+## Instalación y ejecución
 
-### Módulo de clientes
-
-- Registrar clientes.
-- Validar información y evitar registros duplicados.
-- Listar clientes.
-- Mantener los registros mediante `localStorage`.
-
-### Módulo de productos
-
-- Registrar productos.
-- Validar códigos de producto duplicados.
-- Validar precios.
-- Listar productos.
-- Mantener los registros mediante `localStorage`.
-
-### Módulo de pedidos
-
-- Registrar pedidos.
-- Generar identificadores únicos de pedido.
-- Seleccionar clientes y productos registrados.
-- Registrar cantidades y precios.
-- Calcular el total del pedido.
-- Consultar pedidos.
-- Buscar pedidos por código, cliente o producto.
-- Editar pedidos.
-- Eliminar pedidos.
-- Mantener los registros mediante `localStorage`.
-
-## Tecnologías utilizadas
-
-- HTML
-- CSS
-- JavaScript
-- Git
-- GitHub
-- Visual Studio Code
-- localStorage
-
-## Organización del proyecto
-
-```text
-Proyecto-pedidos-tiendatecnologia-grupo05/
-├── docs/
-│   ├── evidencias-carlos.md
-│   └── resolucion-conflictos.md
-├── src/
-│   ├── css/
-│   │   └── estilos.css
-│   ├── js/
-│   │   └── .gitkeep
-│   └── index.html
-└── README.md
+```bash
+npm install
+npm test
+npm start
 ```
 
-Proyecto desarrollado para la asignatura Herramientas de Desarrollo.
+Abrir `http://localhost:3000`. Estado de la API: `http://localhost:3000/api/health`.
 
-## Flujo de trabajo con Git y GitHub
+> La base de datos por defecto se crea en `server/database/data/agenda-clara.db`. Para pruebas o un archivo alternativo, definir `DB_PATH` antes de iniciar Node.
 
-El proyecto utiliza un flujo de trabajo basado en ramas, commits y Pull Requests para organizar la colaboración entre los integrantes.
+## API principal
 
-### Proceso utilizado
+| Método | Ruta | Uso |
+|---|---|---|
+| GET / POST | `/api/clientes` | Consultar/buscar y registrar clientes |
+| GET | `/api/clientes/:id` | Consultar un cliente |
+| PUT | `/api/clientes/:id` | Modificar un cliente |
+| GET / POST | `/api/servicios` | Consultar/buscar y registrar servicios |
+| GET / PUT | `/api/servicios/:id` | Consultar y modificar un servicio |
+| PATCH | `/api/servicios/:id/estado` | Activar/desactivar un servicio |
+| GET / POST | `/api/reservas` | Consultar/buscar y registrar reservas |
+| GET | `/api/reservas/:id` | Consultar una reserva |
+| PATCH | `/api/reservas/:id/cancelar` | Cancelar una reserva |
+| GET | `/api/health` | Verificar API y base de datos |
 
-1. Crear una rama para realizar una funcionalidad o modificación.
-2. Realizar los cambios correspondientes.
-3. Registrar los cambios mediante un commit.
-4. Subir la rama al repositorio remoto.
-5. Crear un Pull Request en GitHub.
-6. Revisar los cambios realizados.
-7. Integrar los cambios mediante un merge hacia `develop`.
+## Organización colaborativa
+
+La estrategia propuesta está documentada en `docs/estrategia-ramas.md`. Actividades para importar en GitHub Projects: `docs/tablero-actividades.csv`. Requisitos y trazabilidad: `docs/requerimientos-trazabilidad.md`.
+
+**Importante:** el tablero real, las revisiones por compañeros, la resolución de un conflicto real y la liberación en GitHub deben confirmarse con evidencias del repositorio/equipo; no se consideran completados por aparecer descritos en documentación.
+
+## Integrantes registrados en el trabajo previo
+
+- Eduardo Jesús Jara Moya — U21302190
+- Lisbert Wiliams Galvan Zamudio — U22217814
+- Nery Emerson Velasquez Pacheco — U23272063
+- Carlos Fernando Rivera Hipolito — U23216154
+- Bruno Santiago Reyes Vicente — U19221035
+
+Confirmen con el equipo que la lista y la participación estén actualizadas antes de entregar.
