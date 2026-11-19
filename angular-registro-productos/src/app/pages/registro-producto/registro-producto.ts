@@ -20,7 +20,7 @@ export class RegistroProducto {
   formulario = this.fb.nonNullable.group({
     nombre: ['', [
       Validators.required,
-      Validators.minLength(2)
+      Validators.minLength(3)
     ]],
     precio: [0, [
       Validators.required,
