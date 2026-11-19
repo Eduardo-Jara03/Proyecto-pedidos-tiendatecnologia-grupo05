@@ -1,0 +1,53 @@
+
+name: Angular - Integracion Continua
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/angular-ci-cd
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  angular-ci:
+    name: Pruebas y build de Angular
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: angular-registro-productos
+
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: angular-registro-productos/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas automaticas
+        run: npm run test -- --watch=false
+
+      - name: Compilar Angular
+        run: npm run build -- --configuration production
+
+      - name: Guardar artefacto compilado
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-build
+          path: angular-registro-productos/dist/registro-productos/browser/
+          if-no-files-found: error
