@@ -43,7 +43,17 @@ jobs:
         run: npm run test -- --watch=false
 
       - name: Compilar Angular
-        run: npm run build -- --configuration production
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ] && [ "${{ github.event_name }}" = "push" ]; then
+            npm run build -- --configuration production --base-href /Proyecto-pedidos-tiendatecnologia-grupo05/
+          else
+            npm run build -- --configuration production
+          fi
+
+      - name: Preparar rutas para GitHub Pages
+        run: |
+          cp dist/registro-productos/browser/index.html dist/registro-productos/browser/404.html
+
 
       - name: Guardar artefacto compilado
         uses: actions/upload-artifact@v4
@@ -51,3 +61,35 @@ jobs:
           name: angular-build
           path: angular-registro-productos/dist/registro-productos/browser/
           if-no-files-found: error
+
+
+  deploy:
+    name: Publicar Angular en GitHub Pages
+    needs: angular-ci
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Descargar build aprobado
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-build
+          path: ./publicacion
+
+      - name: Preparar artefacto para Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./publicacion
+
+      - name: Desplegar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
