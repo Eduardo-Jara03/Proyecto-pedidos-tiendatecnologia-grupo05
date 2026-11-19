@@ -49,10 +49,11 @@ jobs:
           else
             npm run build -- --configuration production
           fi
-
       - name: Preparar rutas para GitHub Pages
         run: |
-          cp dist/registro-productos/browser/index.html dist/registro-productos/browser/404.html
+          cp dist/registro-productos/browser/index.csr.html dist/registro-productos/browser/index.html
+          cp dist/registro-productos/browser/index.csr.html dist/registro-productos/browser/404.html
+
 
 
       - name: Guardar artefacto compilado
